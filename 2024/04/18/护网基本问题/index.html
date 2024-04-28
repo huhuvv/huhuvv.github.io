@@ -261,6 +261,87 @@
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/-andrea/p/17473499.html">https://www.cnblogs.com/-andrea/p/17473499.html</a></p>
 <h1 id="mysql5-7与8-0的区别"><a href="#mysql5-7与8-0的区别" class="headerlink" title="mysql5.7与8.0的区别"></a>mysql5.7与8.0的区别</h1><p><strong>1、性能提升；2、新的默认字符集；3、更好的错误日志；4、提供了角色的概念；5、增强的JSON支持</strong>。 从整体来看，MySQL 8.0在性能和功能上都做了较大的提升。 MySQL 8.0相较于5.7在性能上进行了显著的提升，包括查询优化、增加了性能架构以及事务处理等等</p>
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bc13c572c517">https://www.jianshu.com/p/bc13c572c517</a></p>
+<h1 id="linux入侵检测与window"><a href="#linux入侵检测与window" class="headerlink" title="linux入侵检测与window"></a>linux入侵检测与window</h1><p><strong>被入侵的症状有：</strong></p>
+<ol>
+<li>系统资源</li>
+<li>用户和日志</li>
+<li>文件和命令被篡改</li>
+<li>启动项和定时任务</li>
+</ol>
+<p>1.<strong>系统出现明显的卡顿</strong>  看CPU、内存、磁盘的状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">top -c -o %CPU    排序CPU占比多的程序</span><br><span class="line">top -c -o %MEM    排序内存占比多的程序</span><br><span class="line">df -Th    查看磁盘内容</span><br></pre></td></tr></table></figure>
+
+<p>2<strong>当主机被利用去扫描其他的主机需要占用大量的网络资源</strong> 看网络连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lsof -i    查看网络的网络连接</span><br><span class="line">netstat -antpl   查看端口的连接</span><br><span class="line">istables -L    查看防火墙的规则</span><br></pre></td></tr></table></figure>
+
+<p>3<strong>无论是恶意脚本还是程序的启动都存在一个进程</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ps -ef   </span><br><span class="line">UID          PID   PPID         C        STIME       TTY       TIME         CMD</span><br><span class="line">进程拥有者   进程ID 父进程ID  CPU占用率  进程启动时间  终端设备  开启的时间  进程名称或路径</span><br><span class="line">ps -aux</span><br><span class="line">USER        PID    %CPU        %MEM           VSZ                RSS          TTY     STAT     START         TIME            COMMAND</span><br><span class="line">启动的用户  进程ID  CPU占用率  内存使用量  程序完全驻留需要的内存  实际占用内存  终端设备  进程状态  启动时间点  进程执行到现在总时间  启动命令</span><br></pre></td></tr></table></figure>
+
+<h4 id="关于Linux用户和日志的排查"><a href="#关于Linux用户和日志的排查" class="headerlink" title="关于Linux用户和日志的排查"></a>关于Linux用户和日志的排查</h4><p><strong>当系统被入侵之后可能会写入一个用户后门，使得黑客可以使用自己写入的用户进行 登录</strong> 看系统用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">awk -F: &#x27;$3==0&#123;print $1&#125;&#x27; /etc/passwd    查看UID为0的超级用户</span><br><span class="line">who    当前已登录的用户</span><br><span class="line">w      显示已登录的用户且在执行的命令</span><br><span class="line">last   查看登录成功的用户</span><br><span class="line">lastb  查看最近登录失败的用户</span><br><span class="line">lastlog   查看所有用户最近登录的时间</span><br><span class="line">cat /etc/passwd    查看用户信息</span><br></pre></td></tr></table></figure>
+
+<p><strong>查看登录日志，文件、软件下载日志。脚本需要不用的依赖包，当被写入脚本，脚本的运行则会去联网下载一些依赖包</strong>  审计日志</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/var/log/message    整体日志</span><br><span class="line">/var/log/cron   定时任务日志</span><br><span class="line">/var/log/yum.log   查看下载日志</span><br><span class="line">/var/log/secure    系统应用登录日志</span><br><span class="line">history  历史命令</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux应急措施"><a href="#Linux应急措施" class="headerlink" title="Linux应急措施"></a>Linux应急措施</h3><p>1隔离主机</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">拔网线</span><br></pre></td></tr></table></figure>
+
+<p>2.阻断通信</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">不允许指定流量进出服务器，因为在机器被控制之后肯定会做大量的对外扫描、下载和攻击</span><br><span class="line">iptables -A INPUT -s 可疑地址 -j DROP    按照源IP地址禁用</span><br><span class="line">iptables -A OUTPUT -d 可疑地址 -j FROP   根据目的地址来禁用</span><br></pre></td></tr></table></figure>
+
+<p>3清除病毒删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kill -9 [pid]    杀死进程</span><br><span class="line">lsof -p [pid]     看以这个pid相关的大看的文件</span><br><span class="line">kill -9 -[pid]    杀死进程组</span><br></pre></td></tr></table></figure>
+
+<p>4.可疑用户删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd  看系统的用户账号的基本信息</span><br><span class="line">cat /etc/shadow  看用户账号加密密码与登录限制</span><br><span class="line">userdel 删除用户</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li></li>
+</ol>
+<p>杀毒、恢复服务、甚至重装系统<br>如果黑客对服务器修改的文件太多，亦或者是黑客种下的木马病毒太多，我们已经对服务器没有掌控权限或者修复时间太高与得到的效益不成正比，那么建议重装系统</p>
+<h2 id="Windows入侵排查"><a href="#Windows入侵排查" class="headerlink" title="Windows入侵排查"></a>Windows入侵排查</h2><p><strong>被入侵的症状有</strong>：</p>
+<ol>
+<li>异常特征</li>
+<li>系统账号</li>
+<li>检查异常端口、进程</li>
+<li>启动项、计划任务、服务</li>
+</ol>
+<h4 id="异常特征的排查"><a href="#异常特征的排查" class="headerlink" title="异常特征的排查"></a>异常特征的排查</h4><ol>
+<li>操作异常：<strong>系统卡顿、报错、重启、蓝屏</strong></li>
+<li>资源异常：<strong>CPU、内存、磁盘、网络</strong></li>
+<li>文件异常：<strong>加密文件、恶意文件、隐藏文件</strong></li>
+<li>设备告警：<strong>防火墙告警、杀软告警、态势感知等平台</strong></li>
+</ol>
+<h4 id="Windows系统账号的排查"><a href="#Windows系统账号的排查" class="headerlink" title="Windows系统账号的排查"></a>Windows系统账号的排查</h4><p>1。设过弱口令吗</p>
+<p>2.是否开放3389端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -an | grep 3389</span><br></pre></td></tr></table></figure>
+
+<p>3看有无隐藏账号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user</span><br></pre></td></tr></table></figure>
+
+<p>4.异常端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano    查看端口号，最后一位PID为进程号</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tasklist | findstr &quot;进程号&quot;</span><br><span class="line">taskkill /f /t /in &quot;应用名称&quot;    通过上方的命令找到应用名称并且杀死</span><br></pre></td></tr></table></figure>
+
+<p>5查找进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">win+r：msinfo32    显示所有进程、将异常的程序进行着重排查，如果不确定改程序是否存在病毒，可以将此程序放置云沙箱</span><br></pre></td></tr></table></figure>
+
+<p>6.任务管理器</p>
+<p>看cpu占有率</p>
+<p>看启动项（注册表）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">开始    所有程序    启动</span><br><span class="line"></span><br><span class="line">注册表：</span><br><span class="line">HKEY_CURRENT_USER\software\micorsoft\windows\currentversion\Run</span><br><span class="line">HKEY_CURRENT_USER\software\micorsoft\windows\currentversion\run</span><br><span class="line">HKEY_CURRENT_USER\software\micorsoft\windows\currentversion\Runonce </span><br><span class="line"></span><br><span class="line">火绒    安全工具    启动项</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2计划任务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">taskschd.msc</span><br><span class="line">compmgmt.msc</span><br><span class="line">schtasks.exe</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3.服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">services.msc</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4组策略</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gpedit.msc</span><br><span class="line">Windows设置		脚本[启动/关机]	双击[启动]</span><br><span class="line">添加的脚本或者PowerShell</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_60600840/article/details/131025075">https://blog.csdn.net/qq_60600840/article/details/131025075</a></p>
 
                     </div>
 </div>
