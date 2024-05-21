@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="John Doe">
+    
+    
+    
+    
+    
+    
+    <title>java反射 | Hexo</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="lrc-control">Open Lyrics</a>
+        </li>
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://api.r10086.com/%E5%9B%BE%E5%8C%85webp/%E6%B5%B7%E8%B4%BC%E7%8E%8B%E6%A8%AA%E5%B1%8F%E7%B3%BB%E5%88%971/wallhaven-0q6vml.webp " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">zyzhuv的私人博客</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(1px);
+            -webkit-filter: blur(1px);
+        
+            z-index: -1;
+            background-image: url('https://api.r10086.com/%E5%9B%BE%E5%8C%85webp/%E6%B5%B7%E8%B4%BC%E7%8E%8B%E6%A8%AA%E5%B1%8F%E7%B3%BB%E5%88%971/wallhaven-0q6vml.webp');
+            background-repeat: no-repeat;
+            background-position: center -256px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://api.r10086.com/%E5%9B%BE%E5%8C%85webp/%E6%B5%B7%E8%B4%BC%E7%8E%8B%E6%A8%AA%E5%B1%8F%E7%B3%BB%E5%88%971/wallhaven-0q6vml.webp');
+            background-position: center -300px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">zyzhuv的私人博客</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1314'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">java反射</h1>
+        
+            <div class="cube-article-header">
+                <div class="cube-article-date">
+                    <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                    <!-- moment.js对象 -->
+                    2024-05-21
+                </div>
+                <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+</div>
+            </div>
+            
+                    <div class="cube-article-content cube-markdown">
+                        
+                            <h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="f"><a href="#f" class="headerlink" title="f"></a>f</h1><h1 id="反射的作用"><a href="#反射的作用" class="headerlink" title="反射的作用"></a>反射的作用</h1><p>对象可以从反射获取他的类，类可以通过反射拿到所有的方法（包括私有的），拿得到方法可以调用，总之通过反射我们可以将java这种静态语言附加上动态特性</p>
+<h1 id="什么是反射"><a href="#什么是反射" class="headerlink" title="什么是反射"></a>什么是反射</h1><p>定义： java反射机制是在运行状态中，对任意一个类，都知道这个类的所有属性和方法；对于一个对象都能调用它的任意方法属性；这种动态获取信息及调用方法的功能为反射机制</p>
+<p>正常java中，队形的类型在编译期就确定下来的，对于java反射机制，可以在对象类型未知的情况，动态创建队形并调用其属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#正常的</span><br><span class="line">Test  ts = new Test();</span><br><span class="line">#反射</span><br><span class="line">Class clz = Class.forName(&quot;类的全限定名&quot;)；</span><br><span class="line">Object ts = clz.newInstance();</span><br></pre></td></tr></table></figure>
+
+<p>clz.newInstance();这个作用，通过反射来创建声明类的实例。</p>
+<p>弊端：  这个类要有无参构造函数还带是public不能是私有属性</p>
+<span id="more"></span>
+
+<h1 id="反射的实际用途"><a href="#反射的实际用途" class="headerlink" title="反射的实际用途"></a>反射的实际用途</h1><p>框架和库开发：许多框架和库需要在不了解客户端代码的情况下与各种类和对象进行交互。反射允许这些框架在运行时检查、加载和操作客户端提供的类。</p>
+<p>插件系统：开发插件式应用程序时，你可能不知道哪些插件将被安装和运行。反射可用于在运行时加载和实例化插件类。</p>
+<p>配置和扩展性：通过配置文件或其他外部资源指定类名，反射允许你动态地创建对象。这对于实现可配置性和可扩展性非常有用。</p>
+<p>单元测试和模拟：在单元测试中，你可以使用反射来创建对象、调用私有方法和设置私有字段的值，以便模拟测试环境。</p>
+<p>数据库访问和ORM框架：许多ORM（对象关系映射）框架使用反射来将数据库表的行映射到Java对象，以便进行数据库操作。</p>
+<p>注解处理器：反射用于处理注解，例如自定义注解的处理器，以执行特定的操作。</p>
+<p>动态代理：反射可用于创建动态代理对象，允许你在运行时生成实现特定接口的代理类，以实现横切关注点（例如日志、性能监控等）。</p>
+<h1 id="反射能做什么"><a href="#反射能做什么" class="headerlink" title="反射能做什么"></a>反射能做什么</h1><p>可以无视类的方法，变量访问权限修饰符，调用任何类的任意方法，访问并修改成员变量属性。不可访问的也可以访问。有一处java反射就可干任何事，（你要能控制反射的类，方法名和参数）；</p>
+<h1 id="反射组成的相关类"><a href="#反射组成的相关类" class="headerlink" title="反射组成的相关类"></a>反射组成的相关类</h1><p>反射机制相关操作一般位于java.lang.reflect包中</p>
+<p>java反射机制组成需要重点注意以下的类：</p>
+<p>java.lang.Class：类对象;</p>
+<p>java.lang.reflect.Constructor：类的构造器对象;</p>
+<p>java.lang.reflect.Field：类的属性对象;</p>
+<p>java.lang.reflect.Method：类的方法对象;</p>
+<h1 id="反射源头Class对象"><a href="#反射源头Class对象" class="headerlink" title="反射源头Class对象"></a>反射源头Class对象</h1><p>Class类：</p>
+<p>全称java.lang.Class类。Java是面向对象的语言，讲究万物皆对象，强大到一个列他依然是另一个类的对象，普通的类是Class类的对象，Class是所有类的类；</p>
+<p>java运行在JVNM上，我们编写的类代码，在经过编译器编译之后，会为每一个类生成.class字节码文件，这个JVM可以加载.class文件</p>
+<p>在运行期间，如果我们需要实例化任何一个类，JVM先看内存中有这个类吗？如果有会直接创建实例，如果没有就会根据类名去加载这个类，JVM调用class loader的 defineClass(),为这个类产生一个Class对象（一个class类的实例），来表达这个类，这个类的所有实例都共同拥有整个Class对象，而且是唯一的，即加载.class文件会生成以对应的class对象</p>
+<p><img src="/2024/05/21/java%E5%8F%8D%E5%B0%84/1.png" alt="java反射"></p>
+<p>Class是java.lang.Class类中，所有类的类，而类是java.lang.Class类的实例对象，反射即得到Class对象反向去得到Test对象的各种信息</p>
+<h1 id="获得Class对象方法"><a href="#获得Class对象方法" class="headerlink" title="获得Class对象方法"></a>获得Class对象方法</h1><h3 id="1-类名-class-类是自己创建的类"><a href="#1-类名-class-类是自己创建的类" class="headerlink" title="1 类名.class(类是自己创建的类)"></a>1 类名.class(类是自己创建的类)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clz = Test.class</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-通过类创建的实例对象的getClass方法取得"><a href="#2-通过类创建的实例对象的getClass方法取得" class="headerlink" title="2 通过类创建的实例对象的getClass方法取得"></a>2 通过类创建的实例对象的getClass方法取得</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Test ts = new Test();</span><br><span class="line">Class clz = ts.getClass();</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Class-forName-String-className-动态加载类"><a href="#3-Class-forName-String-className-动态加载类" class="headerlink" title="3 Class.forName(String className);动态加载类"></a>3 Class.forName(String className);动态加载类</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clz = Class.forName(&quot;cmo.ref.Test&quot;);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>举个例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package cmo.ref;</span><br><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) throws ClassNotFoundException &#123;</span><br><span class="line">        // 类的.class属性</span><br><span class="line">        Class clz1 = Test.class;</span><br><span class="line">        System.out.println(clz1.getName());</span><br><span class="line">        // 实例化对象的getClass()方法</span><br><span class="line">        Test demo = new Test();</span><br><span class="line">        Class clz2 = demo.getClass();</span><br><span class="line">        System.out.println(clz2.getName());</span><br><span class="line">        // Class.forName(String className): 动态加载类</span><br><span class="line">        Class clz3 = Class.forName(&quot;cmo.ref.Test&quot;);</span><br><span class="line">        System.out.println(clz3.getName());</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/05/21/java%E5%8F%8D%E5%B0%84/2.png" alt="java反射"></p>
+<p>但在这三种获取CLass类方式中，我们一般使用<strong>第三种通过Class.forName方法去动态加载类</strong>。且使用forName就不需要import导入其他类，可以加载我们任意的类。</p>
+<p>而使用类.class属性，需要导入其他的类的包，依赖性太强，在大型项目中容易抛出编译错误；</p>
+<p>而使用实例化对象的getClass()方法，需要本身创建一个对象，本身就没有了使用反射机制意义。</p>
+<p>所以我们在获取class对象中，一般使用Class.forName方法去获取。</p>
+<h1 id="获取成员变量Field"><a href="#获取成员变量Field" class="headerlink" title="获取成员变量Field"></a>获取成员变量Field</h1><p>获取成员变量Field位于java.lang.reflect.Field包中</p>
+<p>Field[] getFields() ：获取所有public修饰的成员变量</p>
+<p>Field[] getDeclaredFields() 获取所有的成员变量，不考虑修饰符</p>
+<p>Field getField(String name) 获取指定名称的 public修饰的成员变量</p>
+<p>Field getDeclaredField(String name) 获取指定的成员变量</p>
+<h1 id="获取成员方法Method"><a href="#获取成员方法Method" class="headerlink" title="获取成员方法Method"></a>获取成员方法Method</h1><p>Method getMethod(String name, 类&lt;?&gt;… parameterTypes) &#x2F;&#x2F;返回该类所声明的public方法</p>
+<p>Method getDeclaredMethod(String name, 类&lt;?&gt;… parameterTypes) &#x2F;&#x2F;返回该类所声明的所有方法</p>
+<p>&#x2F;&#x2F;第一个参数获取该方法的名字，第二个参数获取标识该方法的参数类型</p>
+<p>Method[] getMethods() &#x2F;&#x2F;获取所有的public方法，包括类自身声明的public方法，父类中的public方法、实现的接口方法</p>
+<p>Method[] getDeclaredMethods() &#x2F;&#x2F; 获取该类中的所有方法</p>
+<h1 id="获取构造函数Constructor"><a href="#获取构造函数Constructor" class="headerlink" title="获取构造函数Constructor"></a>获取构造函数Constructor</h1><p>Constructor&lt;?&gt;[] getConstructors() ：只返回public构造函数</p>
+<p>Constructor&lt;?&gt;[] getDeclaredConstructors() ：返回所有构造函数</p>
+<p>Constructor&lt;&gt; getConstructor(类&lt;?&gt;… parameterTypes) : 匹配和参数配型相符的public构造函数</p>
+<p>Constructor&lt;&gt; getDeclaredConstructor(类&lt;?&gt;… parameterTypes) ： 匹配和参数配型相符的构造函数</p>
+<h1 id="通过反射创建类对象"><a href="#通过反射创建类对象" class="headerlink" title="通过反射创建类对象"></a>通过反射创建类对象</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class c = Class.forName(&quot;com.reflect.MethodTest&quot;); // 创建Class对象</span><br><span class="line">Object m1 =  c.newInstance(); // 创建类对象</span><br></pre></td></tr></table></figure>
+
+<h1 id="invoke（调用方法）"><a href="#invoke（调用方法）" class="headerlink" title="invoke（调用方法）"></a>invoke（调用方法）</h1><p>invoke方法位于java.lang.reflect.Method类，执行某个对象的目标方法，一般以getMethod方法配合使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public Object invoke(Object obj, Object... args)</span><br></pre></td></tr></table></figure>
+
+<p>第一个参数为类的实例，第二个参数为相应函数中的参数</p>
+<p>obj：从中调用底层方法的对象，必须是实例化对象</p>
+<p>args： 用于方法的调用，是一个object的数组，参数有可能是多个</p>
+<p>但是</p>
+<p>方法是普通的方法，那么第一个参数是类对象</p>
+<p>静态方法，第一个参数是类</p>
+<p>举例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package cmo.ref;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line">public class Test &#123;</span><br><span class="line">    public void reflectMethod() &#123;</span><br><span class="line">        System.out.println(&quot;反射测试成功!!!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            Class clz = Class.forName(&quot;cmo.ref.Test&quot;);// 创建Class对象</span><br><span class="line">            Object m = clz.newInstance(); // 创建类实例对象</span><br><span class="line">            Method method = clz.getMethod(&quot;reflectMethod&quot;); // 获取reflectMethod方法</span><br><span class="line">            method.invoke(m); // 调用类实例对象方法</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="利用反射构造Runtime类执行"><a href="#利用反射构造Runtime类执行" class="headerlink" title="利用反射构造Runtime类执行"></a>利用反射构造Runtime类执行</h1><p>Runtime类里有一个exec方法可以执行命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(&quot;java.lang.Runtime&quot;);</span><br><span class="line">clazz.getMethod(&quot;exec&quot;, String.class).invoke(clazz.newInstance(), &quot;id&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>不能执行，</p>
+<p>runtime的类构造函数时私有的</p>
+<p>newInstance要求是public</p>
+<p>但是Runtime.getRuntime()可以获取Runtime对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(&quot;java.lang.Runtime&quot;);</span><br><span class="line">clazz.getMethod(&quot;exec&quot;, String.class).invoke(clazz.getMethod(&quot;getRuntime&quot;).invoke(clazz), &quot;calc.exe&quot;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="getMethod"><a href="#getMethod" class="headerlink" title="getMethod"></a>getMethod</h6><p>作用 通过反射获取一个类特有的共有方法， 应为java支持类的重载，我们不能只凭方法名还要有参数，两个确定一个方法</p>
+<h1 id="setAccessible-true-暴力访问权限（没成功）"><a href="#setAccessible-true-暴力访问权限（没成功）" class="headerlink" title="setAccessible(true)暴力访问权限（没成功）"></a>setAccessible(true)暴力访问权限（没成功）</h1><p>解决一个方法或构造方法是私有方法的情况</p>
+<p>利用 getDeclared 系列的反射</p>
+<p>首先说明getDeclared 系列的反射了，与普通的getMethod 、getConstructor 区别是：getMethod 系列方法获取的是当前类中所有公共方法，包括从父类继承的方法 ，getDeclaredMethod 系列方法获取的是当前类中“声明”的方法，是实在写在这个类里的，包括私 有的方法，但从父类里继承来的就不包含了。 getDeclaredMethod 的具体用法和 getMethod 类似， getDeclaredConstructor 的具体用法和 getConstructor 类似</p>
+<p>Java.lang.reflect.AccessibleObject类是Field，Method和Constructor类对象的基类，可以提供将反射对象标记为使用它抑制某人Java访问控制检查的功能，同时上述的反射类中的Field，Method和Constructor继承自AccessibleObject。所以我们在这些类方法基础上调用setAccessible()方法，既可对这些私有字段进行操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import java.lang.reflect.Constructor;</span><br><span class="line"></span><br><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line"></span><br><span class="line">        Class clazz = Class.forName(&quot;java.lang.Runtime&quot;);</span><br><span class="line">        Constructor m = clazz.getDeclaredConstructor();</span><br><span class="line">        m.setAccessible(true);</span><br><span class="line">        clazz.getMethod(&quot;exec&quot;, String.class).invoke(m.newInstance(), &quot;calc.exe&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ProcessBuilder"><a href="#ProcessBuilder" class="headerlink" title="ProcessBuilder"></a>ProcessBuilder</h1><p>解决一个类没有无参构造方法，也没有类似单例模式里的静态方法</p>
+<p>看p神的</p>
+<p>我们需要用到一个新的反射方法 getConstructor 。 和 getMethod 类似， getConstructor 接收的参数是构造函数列表类型，因为构造函数也支持重载， 所以必须用参数列表类型才能唯一确定一个构造函数。 获取到构造函数后，我们使用 newInstance 来执行。 比如，我们常用的另一种执行命令的方式ProcessBuilder，我们使用反射来获取其构造函数，然后调用 start() 来执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(&quot;java.lang.ProcessBuilder&quot;);</span><br><span class="line">((ProcessBuilder)</span><br><span class="line">clazz.getConstructor(List.class).newInstance(Arrays.asList(&quot;calc.exe&quot;))).star</span><br><span class="line">t();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>ProcessBuilder有两个构造函数：</p>
+<p>public ProcessBuilder(List command)</p>
+<p>public ProcessBuilder(String… command)</p>
+<p>上面用到了第一个形式的构造函数，所以我在 getConstructor 的时候传入的是 List.class 。 但是，我们看到，前面这个Payload用到了Java里的强制类型转换，有时候我们利用漏洞的时候（在表 达式上下文中）是没有这种语法的。所以，我们仍需利用反射来完成这一步。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(&quot;java.lang.ProcessBuilder&quot;);</span><br><span class="line">clazz.getMethod(&quot;start&quot;).invoke(clazz.getConstructor(List.class).newInstance(</span><br><span class="line">Arrays.asList(&quot;calc.exe&quot;)));</span><br></pre></td></tr></table></figure>
+
+<p>通过 getMethod(“start”) 获取到start方法，然后 invoke 执行， invoke 的第一个参数就是 ProcessBuilder Object了。</p>
+<p>那么，如果我们要使用 public ProcessBuilder(String… command) 这个构造函数，需要怎样用反 射执行呢？ 这又涉及到Java里的可变长参数（varargs）了。正如其他语言一样，Java也支持可变长参数，就是当你 定义函数的时候不确定参数数量的时候，可以使用 … 这样的语法来表示“这个函数的参数个数是可变 的”。 对于可变长参数，Java其实在编译的时候会编译成一个数组，也就是说，如下这两种写法在底层是等价 的（也就不能重载）：</p>
+<p>public void hello(String[] names) {}</p>
+<p>public void hello(String…names) {}</p>
+<p>也由此，如果我们有一个数组，想传给hello函数，只需直接传即可：</p>
+<p>那么对于反射来说，如果要获取的目标函数里包含可变长参数，其实我们认为它是数组就行了。 所以，我们将字符串数组的类 String[].class 传给 getConstructor ，获取 ProcessBuilder 的第二 种构造函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(&quot;java.lang.ProcessBuilder&quot;);</span><br><span class="line">((ProcessBuilder)clazz.getConstructor(String[].class).newInstance(new</span><br><span class="line">String[][]&#123;&#123;&quot;calc.exe&quot;&#125;&#125;)).start();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clz.getMethod(&quot;start&quot;).invoke(clz.getConstructor(String[].class).newInstance(new String[][]&#123;&#123;&quot;calc.exe&quot;&#125;&#125;));</span><br></pre></td></tr></table></figure>
+
+<p>数组在函数中的传递</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String[] names = &#123;&quot;hello&quot;, &quot;world&quot;&#125;;</span><br><span class="line"></span><br><span class="line">hello(names);</span><br></pre></td></tr></table></figure>
+
+
+                    </div>
+</div>
+
+    <div class="cube-article-nav">
+        <ul>
+            
+                    
+                        <li class="next">
+                            <a href="/2024/05/19/ctfphp%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                ctfphp连接数据库
+                                    <i class="cube-icon cube-next" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        
+        </ul>
+    </div>
+    
+        
+            <!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+                
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>John Doe</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>6</span>Article</a>
+        <a class="count tags"><span>0</span>Tags</a>
+        <a class="count categories"><span>0</span>Categories</a>
+    </div>
+</div>
+
+
+
+<div class="cube-music cube-sidebar" id="cube-music">
+    <div class="cube-player aplayer" id="cube-player"></div>
+</div>
+<script>
+    (function (window) {
+        window.musicModule = {}
+        window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"Dear friends","author":"TRIPLANE","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/TRIPLANE - Dear friends.mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/Dear friends - TRIPLANE.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/TRIPLANE - Dear friends.jpg"},{"title":"Butter-Fly","author":"和田光司","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/和田光司 - Butter-Fly (ピアノヴァージョン).mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/Butter-Fly (ピアノヴァージョン) - 和田光司.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/和田光司 - Butter-Fly (ピアノヴァージョン).jpg"},{"title":"宵闇花火","author":"葉月ゆら","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/葉月ゆら - 宵闇花火.mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/宵闇花火 - 葉月ゆら.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/葉月ゆら - 宵闇花火.jpg"}]}'
+        window.musicModule.lrcConfig = {
+            open: 'Open Lyrics',
+            close: 'Close Lyrics'
+        }
+    })(window)
+</script>
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/2024/05/21/java%E5%8F%8D%E5%B0%84/" title="java反射">java反射</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/2024/05/19/ctfphp%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" title="ctfphp连接数据库">ctfphp连接数据库</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/2024/04/18/%E6%8A%A4%E7%BD%91%E5%9F%BA%E6%9C%AC%E9%97%AE%E9%A2%98/" title="护网基本问题">护网基本问题</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/2024/04/16/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" title="测试文章">测试文章</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/2024/04/14/1/" title="1">1</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+
+
+
+
+<div class="cube-links cube-sidebar" id="cube-links">
+    <div class="title">
+        <a>Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            
+            
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/links/GitHub.png">
+            
+            <a href="https://github.com/ZEROKISEKI" target="_blank">GitHub</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/links/Coding.png">
+            
+            <a href="https://coding.net/u/SORA1" target="_blank">Coding</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/links/SF.png">
+            
+            <a href="https://segmentfault.com/u/aonosora" target="_blank">SF社区</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/links/开发者头条.png">
+            
+            <a href="https://toutiao.io/u/148070" target="_blank">开发者头条</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-friend-links">
+    <div class="title">
+        <a>Friend Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/friend_links/micblo.png">
+            <a href="https://blog.micblo.com/" target="_blank">罗大佬</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/friend_links/DIYgod.jpg">
+            <a href="https://www.anotherhome.net/" target="_blank">DIYgod</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="/images/friend_links.jpg ">
+            <a href="https://aonosora.com/" target="_blank">咪西西の部落格</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 John Doe
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>
