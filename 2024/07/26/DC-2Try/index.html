@@ -181,6 +181,8 @@
 <p><a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-2,311/">https://www.vulnhub.com/entry/dc-2,311/</a></p>
 <p>先设成net模式</p>
 <p>2</p>
+<span id="more"></span>
+
 <p>信息收集</p>
 <p>(1)看ip</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line">nmap -sP 192.168.49.0/24</span><br></pre></td></tr></table></figure>
@@ -247,7 +249,7 @@
 
 <p>输入密码，不行</p>
 <p>换一个账号</p>
-<p>ssh <a href="mailto:&#116;&#x6f;&#x6d;&#x40;&#49;&#x39;&#50;&#46;&#49;&#x36;&#56;&#46;&#x34;&#x39;&#x2e;&#x31;&#x33;&#x31;">&#116;&#x6f;&#x6d;&#x40;&#49;&#x39;&#50;&#46;&#49;&#x36;&#56;&#46;&#x34;&#x39;&#x2e;&#x31;&#x33;&#x31;</a> -p 7744</p>
+<p>ssh <a href="mailto:&#116;&#x6f;&#109;&#x40;&#49;&#x39;&#x32;&#x2e;&#x31;&#54;&#56;&#46;&#52;&#57;&#46;&#x31;&#51;&#x31;">&#116;&#x6f;&#109;&#x40;&#49;&#x39;&#x32;&#x2e;&#x31;&#54;&#56;&#46;&#52;&#57;&#46;&#x31;&#51;&#x31;</a> -p 7744</p>
 <p>输入密码</p>
 <p>ok登进去了</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ls  #看到flag3.txt</span><br><span class="line">cat flag3.txt</span><br><span class="line">发现 rbash 禁了cat</span><br><span class="line"></span><br><span class="line">compgen -c   查看可以使用的命令</span><br><span class="line">有一个vi</span><br><span class="line">vi flag3.txt</span><br></pre></td></tr></table></figure>
